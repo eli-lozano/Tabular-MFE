@@ -6,7 +6,7 @@ describe('BoardContainer', () => {
     it('contains a board title, board toolbar, and board content', () => {
         render(<BoardContainer />);
 
-        expect(screen.getByText('Board Title')).toBeInTheDocument();
+        expect(screen.getByText('Tabular.io')).toBeInTheDocument();
         expect(screen.getByText('Board Toolbar')).toBeInTheDocument();
         expect(screen.getByText('Board Content')).toBeInTheDocument();
     });

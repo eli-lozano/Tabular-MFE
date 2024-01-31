@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "@fontsource/krona-one";
 
 const inter = Inter({ subsets: ["latin"] });
 
