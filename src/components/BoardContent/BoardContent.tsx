@@ -12,7 +12,8 @@ const classes: Record<string, SxProps<Theme>> = {
 };
 
 const renderColumns = () => {
-    return Object.keys(TASK_STATUS).map((key) => <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} />);
+    return Object.keys(TASK_STATUS).map((key) =>
+        <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} />);
 };
 
 const BoardContent: React.FC = () => {

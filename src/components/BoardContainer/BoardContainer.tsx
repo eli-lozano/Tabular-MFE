@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
-import BoardToolbar from "../BoardToolbar/BoardToolbar";
+import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 
 const classes: Record<string, SxProps<Theme>> = {

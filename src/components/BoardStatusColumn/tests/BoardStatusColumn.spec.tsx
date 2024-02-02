@@ -7,6 +7,7 @@ const taskMock: Task = {
     id: 1,
     label: 'Task A'
 };
+
 describe('BoardStatusColumn', () => {
     it('should display the status header', () => {
         render(<BoardStatusColumn header={TASK_STATUS.TO_DO} />);
