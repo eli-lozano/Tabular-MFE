@@ -1,14 +1,19 @@
 import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
-import BoardToolbar from "../BoardToolbar/BoardToolbar";
+import BoardToolbar from "../BoardToolbar";
+import BoardContent from "../BoardContent";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
+        display: 'flex',
+        justifyContent: 'center',
+        overflowX: 'hidden',
+    },
+    content: {
         height: '95vh',
         width: '96vw',
-        m: 3,
+        m: 2,
         backgroundColor: '#F8F0E5',
-        // Gets multiplied by 4
         borderRadius: 2.5,
     },
     titleContainer: {
@@ -20,19 +25,18 @@ const classes: Record<string, SxProps<Theme>> = {
     title: {
         fontFamily: 'Krona One',
         fontSize: 48,
-    },
-    content: {
-        height: 770,
-        width: '100%',
+        color: '#0F2C59',
     },
 };
 
 const BoardContainer: React.FC = () => {
     return (
         <Box sx={classes.container}>
-            <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
-            <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
-            <Box sx={classes.content}>Board Content</Box>
+            <Box sx={classes.content}>
+                <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
+                <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
+                <BoardContent />
+            </Box>
         </Box>
     );
 };

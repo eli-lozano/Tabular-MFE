@@ -1,7 +1,8 @@
 'use client'
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { Box, SxProps, Theme, styled } from "@mui/system";
 import { NameInitialsAvatar } from 'react-name-initials-avatar';
+import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 
 const classes: Record<string, SxProps<Theme>> = {
     toolbar: {
@@ -18,23 +19,18 @@ const classes: Record<string, SxProps<Theme>> = {
     iconsContainer: {
         display: 'flex',
         flexDirection: 'row',
-        marginTop: 1,
+        mt: 1.5,
+        ml: 1,
         gap: 0.8,
     },
-    teamMembersContainer: {
-        display: 'flex',
-        gap: 2.75,
-    },
-    teamMembersLabel: {
-        fontFamily: 'IBM Plex Mono',
-        fontSize: 24,
-        fontWeight: 600,
-        marginTop: 1.5,
+    addIcon: {
+        mt: 0.15,
+        ml: 0.75
     },
     createButton: {
         height: 39,
         width: 99,
-        marginTop: 1.5,
+        mt: 1.5,
         backgroundColor: '#0F2C59',
         color: '#F8F0E5',
         textTransform: 'none',
@@ -49,16 +45,19 @@ interface BoardToolbarProps {
 }
 
 const MemberIcons = (memberNames: string[]) => {
-    return memberNames.map((name) => <NameInitialsAvatar name={name} textColor="white" bgColor="black" />);
+    return memberNames.map((name, i) =>
+        <NameInitialsAvatar name={name} textColor="white" bgColor="black" size="32px" textSize="14px" key={i} />);
 };
 
 const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames }) => {
     return (
         <Box sx={classes.toolbar} data-testid="board-toolbar">
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-start', paddingLeft: 3 }}>
-                <Box sx={classes.teamMembersContainer}>
-                    <Typography sx={classes.teamMembersLabel}>Team Members: </Typography>
-                    <Box sx={classes.iconsContainer}>{MemberIcons(memberNames)}</Box>
+                <Box sx={classes.iconsContainer}>
+                    {MemberIcons(memberNames)}
+                    <Box sx={classes.addIcon}>
+                        <PersonAddAltRoundedIcon fontSize="large" />
+                    </Box>
                 </Box>
             </Box>
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-end', paddingRight: 6 }}>
