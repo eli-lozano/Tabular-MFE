@@ -4,20 +4,21 @@ import { TASK_STATUS } from "@/types";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
+        width: '99%',
         display: 'flex',
         marginTop: 1.5,
         p: 1,
     },
 };
 
+const renderColumns = () => {
+    return Object.keys(TASK_STATUS).map((key) => <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} />);
+};
+
 const BoardContent: React.FC = () => {
     return (
-        <Box sx={classes.container}>
-            <BoardStatusColumn header={TASK_STATUS.TO_DO} tasks={[{ id: 1, label: 'Task A' }]} />
-            <BoardStatusColumn header={TASK_STATUS.IN_PROGRESS} />
-            <BoardStatusColumn header={TASK_STATUS.READY_FOR_QA} />
-            <BoardStatusColumn header={TASK_STATUS.READY_TO_DEPLOY} />
-            <BoardStatusColumn header={TASK_STATUS.DONE} />
+        <Box sx={classes.container} data-testid="board-content">
+            {renderColumns()}
         </Box>);
 };
 

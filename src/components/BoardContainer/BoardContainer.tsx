@@ -5,9 +5,14 @@ import BoardContent from "../BoardContent";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
+        display: 'flex',
+        justifyContent: 'center',
+        overflowX: 'hidden',
+    },
+    content: {
         height: '95vh',
         width: '96vw',
-        m: 3,
+        m: 2,
         backgroundColor: '#F8F0E5',
         borderRadius: 2.5,
     },
@@ -22,18 +27,16 @@ const classes: Record<string, SxProps<Theme>> = {
         fontSize: 48,
         color: '#0F2C59',
     },
-    content: {
-        height: 770,
-        width: '100%',
-    },
 };
 
 const BoardContainer: React.FC = () => {
     return (
         <Box sx={classes.container}>
-            <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
-            <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
-            <BoardContent />
+            <Box sx={classes.content}>
+                <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
+                <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
+                <BoardContent />
+            </Box>
         </Box>
     );
 };

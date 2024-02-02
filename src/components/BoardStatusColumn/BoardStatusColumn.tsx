@@ -5,9 +5,11 @@ import TaskCard from "../TaskCard/TaskCard";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
-        minHeight: '100%',
-        minWidth: 331,
-        backgroundColor: '#EADBC8',
+        height: '100%',
+        minHeight: 140,
+        width: '20%',
+        minWidth: 265,
+        backgroundColor: 'rgba(234, 219, 200, 80%)',
         borderRadius: 1.75,
         margin: '0px 3px'
     },
@@ -24,10 +26,10 @@ const classes: Record<string, SxProps<Theme>> = {
         justifyContent: 'center',
     },
     header: {
-        fontFamily: 'Roboto Mono',
-        fontSize: 24,
-        fontWeight: 900,
-        paddingLeft: 4.5,
+        fontSize: 14,
+        fontWeight: 600,
+        paddingLeft: 2,
+        opacity: '85%',
         color: '#0F2C59',
     },
     cards: {
@@ -47,13 +49,13 @@ interface BoardStatusColumnProps {
 const BoardStatusColumn: React.FC<BoardStatusColumnProps> = ({ header, tasks = [] }) => {
 
     const renderTaskCards = () => {
-        return tasks.map((task) => <TaskCard task={task} />)
+        return tasks.map((task) => <TaskCard task={task} key={task.id} />)
     };
 
     return (
         <Box sx={classes.container}>
             <Box sx={classes.headerContainer}>
-                <Typography sx={classes.header}>{header}</Typography>
+                <Typography sx={classes.header}>{header.toUpperCase()}</Typography>
             </Box>
             {tasks && tasks.length > 0 &&
                 <Box sx={classes.content}>

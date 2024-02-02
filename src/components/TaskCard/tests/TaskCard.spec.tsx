@@ -13,9 +13,9 @@ describe('TaskCard', () => {
         render(<TaskCard task={taskMock} />);
 
         expect(screen.getByText('Task A')).toBeInTheDocument();
-        expect(screen.getByText(1)).toBeInTheDocument();
+        expect(screen.getByText('T-1')).toBeInTheDocument();
         expect(screen.getByText('UA')).toBeInTheDocument();
-        expect(screen.getByText('X')).toBeInTheDocument();
+        expect(screen.getByTestId('close-icon')).toBeInTheDocument();
     });
 
     it.todo('should update the task label when the user edits the label and presses enter');

@@ -8,6 +8,6 @@ describe('BoardContainer', () => {
 
         expect(screen.getByText('Tabular.io')).toBeInTheDocument();
         expect(screen.getByTestId('board-toolbar')).toBeInTheDocument();
-        expect(screen.getByText('Board Content')).toBeInTheDocument();
+        expect(screen.getByTestId('board-content')).toBeInTheDocument();
     });
 });

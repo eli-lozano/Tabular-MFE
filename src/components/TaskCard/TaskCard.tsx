@@ -42,7 +42,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                         <Typography fontSize="14px">{task.label}</Typography>
                     </Box>
                     <Box sx={{ ...classes.element, justifyContent: 'flex-end' }}>
-                        <CloseIcon />
+                        <CloseIcon data-testid="close-icon" />
                     </Box>
                 </Box>
                 <Box sx={classes.contentFormat}>

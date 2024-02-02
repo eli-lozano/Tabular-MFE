@@ -10,6 +10,6 @@ describe('BoardContent', () => {
     TASK_STATUS.READY_TO_DEPLOY,
     TASK_STATUS.DONE])('should render column/section: %s', (status: TASK_STATUS) => {
         render(<BoardContent />);
-        expect(screen.getByText(status)).toBeInTheDocument();
+        expect(screen.getByText(status.toUpperCase())).toBeInTheDocument();
     });
 });

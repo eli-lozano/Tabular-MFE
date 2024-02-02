@@ -10,7 +10,7 @@ const taskMock: Task = {
 describe('BoardStatusColumn', () => {
     it('should display the status header', () => {
         render(<BoardStatusColumn header={TASK_STATUS.TO_DO} />);
-        expect(screen.getByText(TASK_STATUS.TO_DO)).toBeInTheDocument();
+        expect(screen.getByText(TASK_STATUS.TO_DO.toUpperCase())).toBeInTheDocument();
     });
 
     it('should display no task cards when there are no tasks in the column', () => {
@@ -22,6 +22,6 @@ describe('BoardStatusColumn', () => {
         render(<BoardStatusColumn header={TASK_STATUS.TO_DO} tasks={[taskMock]} />);
 
         expect(screen.getByText('Task A')).toBeInTheDocument();
-        expect(screen.getByText('1')).toBeInTheDocument();
+        expect(screen.getByText('T-1')).toBeInTheDocument();
     });
 });
