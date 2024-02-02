@@ -6,7 +6,7 @@ const classes: Record<string, SxProps<Theme>> = {
     container: {
         width: '99%',
         display: 'flex',
-        marginTop: 1.5,
+        mt: 1.5,
         p: 1,
     },
 };

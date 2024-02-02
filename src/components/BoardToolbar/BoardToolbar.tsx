@@ -45,7 +45,8 @@ interface BoardToolbarProps {
 }
 
 const MemberIcons = (memberNames: string[]) => {
-    return memberNames.map((name, i) => <NameInitialsAvatar name={name} textColor="white" bgColor="black" size="32px" textSize="14px" key={i} />);
+    return memberNames.map((name, i) =>
+        <NameInitialsAvatar name={name} textColor="white" bgColor="black" size="32px" textSize="14px" key={i} />);
 };
 
 const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames }) => {

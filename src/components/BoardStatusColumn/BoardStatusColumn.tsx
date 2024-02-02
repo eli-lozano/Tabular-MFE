@@ -11,12 +11,12 @@ const classes: Record<string, SxProps<Theme>> = {
         minWidth: 265,
         backgroundColor: 'rgba(234, 219, 200, 80%)',
         borderRadius: 1.75,
-        margin: '0px 3px'
+        m: '0px 3px'
     },
     content: {
         display: 'flex',
         justifyContent: 'center',
-        marginTop: 2,
+        mt: 2,
     },
     headerContainer: {
         height: 53,
@@ -28,7 +28,7 @@ const classes: Record<string, SxProps<Theme>> = {
     header: {
         fontSize: 14,
         fontWeight: 600,
-        paddingLeft: 2,
+        pl: 2,
         opacity: '85%',
         color: '#0F2C59',
     },
