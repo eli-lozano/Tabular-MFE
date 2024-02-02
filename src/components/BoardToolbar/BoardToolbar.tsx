@@ -26,10 +26,11 @@ const classes: Record<string, SxProps<Theme>> = {
         gap: 2.75,
     },
     teamMembersLabel: {
-        fontFamily: 'IBM Plex Mono',
+        fontFamily: 'Roboto Mono',
         fontSize: 24,
         fontWeight: 600,
         marginTop: 1.5,
+        color: '#0F2C59',
     },
     createButton: {
         height: 39,
@@ -49,7 +50,7 @@ interface BoardToolbarProps {
 }
 
 const MemberIcons = (memberNames: string[]) => {
-    return memberNames.map((name) => <NameInitialsAvatar name={name} textColor="white" bgColor="black" />);
+    return memberNames.map((name) => <NameInitialsAvatar name={name} textColor="white" bgColor="black" size="32px" textSize="14px" />);
 };
 
 const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames }) => {

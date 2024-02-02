@@ -1,7 +1,7 @@
 import { TASK_STATUS } from '@/types';
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import BoardContent from '..';
+import BoardContent from '../BoardContent';
 
 describe('BoardContent', () => {
     it.each([TASK_STATUS.TO_DO,

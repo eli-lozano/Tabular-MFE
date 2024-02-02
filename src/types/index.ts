@@ -6,6 +6,19 @@ enum TASK_STATUS {
     DONE = 'Done',
 };
 
+type TaskId = number;
+
+type TeamMember = {
+    name: string;
+}
+
+type Task = {
+    id: TaskId;
+    label: string;
+    assignee?: TeamMember;
+}
+
+export type { Task, TeamMember, TaskId };
 export {
     TASK_STATUS
-}
+};

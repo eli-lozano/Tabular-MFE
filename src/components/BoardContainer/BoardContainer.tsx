@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar/BoardToolbar";
+import BoardContent from "../BoardContent";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -8,7 +9,6 @@ const classes: Record<string, SxProps<Theme>> = {
         width: '96vw',
         m: 3,
         backgroundColor: '#F8F0E5',
-        // Gets multiplied by 4
         borderRadius: 2.5,
     },
     titleContainer: {
@@ -20,6 +20,7 @@ const classes: Record<string, SxProps<Theme>> = {
     title: {
         fontFamily: 'Krona One',
         fontSize: 48,
+        color: '#0F2C59',
     },
     content: {
         height: 770,
@@ -32,7 +33,7 @@ const BoardContainer: React.FC = () => {
         <Box sx={classes.container}>
             <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
             <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
-            <Box sx={classes.content}>Board Content</Box>
+            <BoardContent />
         </Box>
     );
 };
