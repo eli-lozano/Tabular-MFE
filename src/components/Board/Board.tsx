@@ -1,7 +1,11 @@
+'use client';
 import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
+import { useState } from "react";
+import { Task, TaskId, TaskState } from "@/types";
+import { MockTaskState } from "@/test-utils/mocks/task-mocks";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -10,7 +14,8 @@ const classes: Record<string, SxProps<Theme>> = {
         overflowX: 'hidden',
     },
     content: {
-        height: '95vh',
+        minHeight: '95vh',
+        height: 'auto',
         width: '96vw',
         m: 2,
         backgroundColor: '#F8F0E5',
@@ -29,16 +34,25 @@ const classes: Record<string, SxProps<Theme>> = {
     },
 };
 
-const BoardContainer: React.FC = () => {
+const Board: React.FC = () => {
+    const [taskState, setTaskState] = useState<TaskState>(MockTaskState);
+
+    const handleDeleteTask = (task: Task) => {
+        setTaskState((prevTaskState) => {
+            prevTaskState[task.status]?.delete(task.id);
+            return { ...prevTaskState };
+        });
+    };
+
     return (
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
                 <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
-                <BoardContent />
+                <BoardContent taskState={taskState} onDelete={handleDeleteTask} />
             </Box>
         </Box>
     );
 };
 
-export default BoardContainer;
+export default Board;

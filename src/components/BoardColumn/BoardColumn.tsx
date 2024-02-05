@@ -1,15 +1,15 @@
-import { TASK_STATUS, Task } from "@/types";
+import { TASK_STATUS, Task, TaskId, TaskMap } from "@/types";
 import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import TaskCard from "../TaskCard/TaskCard";
+import { useEffect } from "react";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
-        height: '100%',
         minHeight: 140,
         width: '20%',
         minWidth: 265,
-        backgroundColor: 'rgba(234, 219, 200, 80%)',
+        backgroundColor: 'rgba(234, 219, 200, 75%)',
         borderRadius: 1.75,
         m: '0px 3px'
     },
@@ -17,6 +17,7 @@ const classes: Record<string, SxProps<Theme>> = {
         display: 'flex',
         justifyContent: 'center',
         mt: 2,
+        mb: 3.5,
     },
     headerContainer: {
         height: 53,
@@ -41,15 +42,15 @@ const classes: Record<string, SxProps<Theme>> = {
     },
 };
 
-interface BoardStatusColumnProps {
+interface BoardColumnProps {
     header: TASK_STATUS;
-    tasks?: Task[];
+    onDelete: (task: Task) => void;
+    taskMap?: TaskMap;
 }
 
-const BoardStatusColumn: React.FC<BoardStatusColumnProps> = ({ header, tasks = [] }) => {
-
+const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, taskMap = new Map() }) => {
     const renderTaskCards = () => {
-        return tasks.map((task) => <TaskCard task={task} key={task.id} />)
+        return Array.from(taskMap).map(([id, task]) => <TaskCard task={task} key={id} onDelete={onDelete} />);
     };
 
     return (
@@ -57,7 +58,7 @@ const BoardStatusColumn: React.FC<BoardStatusColumnProps> = ({ header, tasks = [
             <Box sx={classes.headerContainer}>
                 <Typography sx={classes.header}>{header.toUpperCase()}</Typography>
             </Box>
-            {tasks && tasks.length > 0 &&
+            {taskMap && taskMap.size > 0 &&
                 <Box sx={classes.content}>
                     <Box sx={classes.cards}>
                         {renderTaskCards()}
@@ -68,4 +69,4 @@ const BoardStatusColumn: React.FC<BoardStatusColumnProps> = ({ header, tasks = [
     );
 };
 
-export default BoardStatusColumn;
+export default BoardColumn;

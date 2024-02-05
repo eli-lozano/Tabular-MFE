@@ -1,5 +1,5 @@
 'use client'
-import { Task, TeamMember } from "@/types";
+import { Task, TaskId, TeamMember } from "@/types";
 import { Card, CardContent, IconButton, TextField, Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import { NameInitialsAvatar } from "react-name-initials-avatar";
@@ -12,7 +12,7 @@ const classes: Record<string, SxProps<Theme>> = {
     container: {
         minHeight: 105,
         height: 'auto',
-        maxHeight: 400,
+        maxHeight: 350,
         width: 260,
         borderRadius: 4.5,
         backgroundColor: '#F8F0E5',
@@ -22,7 +22,7 @@ const classes: Record<string, SxProps<Theme>> = {
         p: 2,
         display: 'flex',
         flexDirection: 'column',
-        gap: 3,
+        gap: 2,
     },
     contentFormat: {
         display: 'flex',
@@ -48,6 +48,7 @@ const classes: Record<string, SxProps<Theme>> = {
 
 interface TaskCardProps {
     task: Task;
+    onDelete: (task: Task) => void;
 }
 
 const renderAssigneeIcon = (assignee?: TeamMember) => {
@@ -56,7 +57,7 @@ const renderAssigneeIcon = (assignee?: TeamMember) => {
         : <PersonIcon data-testid="assignee-icon" />;
 };
 
-const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
     const [text, setText] = useState(task.label);
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -69,14 +70,14 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                 <Box sx={classes.contentFormat}>
                     <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
                         <TextField multiline value={text} onChange={handleTextChange} variant="standard" fullWidth
-                            inputProps={{ maxLength: 300 }}
+                            inputProps={{ maxLength: 200 }}
                             InputProps={{
                                 disableUnderline: true,
                             }} />
                     </Box>
                     <Box sx={{ ...classes.element, justifyContent: 'flex-end', width: '15%' }}>
                         <Box sx={classes.iconButtonFormat}>
-                            <IconButton aria-label="delete" sx={classes.iconButton}>
+                            <IconButton aria-label="delete" sx={classes.iconButton} onClick={() => onDelete(task)}>
                                 <CloseIcon data-testid="close-icon" />
                             </IconButton>
                         </Box>

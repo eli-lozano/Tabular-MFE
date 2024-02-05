@@ -1,26 +1,31 @@
 import { Box, SxProps, Theme } from "@mui/system";
-import BoardStatusColumn from "../BoardStatusColumn";
-import { TASK_STATUS } from "@/types";
+import BoardColumn from "../BoardColumn";
+import { TASK_STATUS, Task, TaskId, TaskState } from "@/types";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
         width: '99%',
+        height: 'auto',
         display: 'flex',
         mt: 1.5,
+        mb: 0.25,
         p: 1,
     },
 };
 
-const renderColumns = () => {
-    return Object.keys(TASK_STATUS).map((key) => {
-        if (TASK_STATUS[key as keyof typeof TASK_STATUS] === TASK_STATUS.TO_DO) {
-            return <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} tasks={[{ id: 1, label: 'Task A' }]} />;
-        }
-        return <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} />;
-    });
-};
+interface BoardContentProps {
+    taskState: TaskState;
+    onDelete: (task: Task) => void;
+}
 
-const BoardContent: React.FC = () => {
+const BoardContent: React.FC<BoardContentProps> = ({ taskState, onDelete }) => {
+    const renderColumns = () => {
+        return Object.keys(TASK_STATUS).map((key) => {
+            const status = TASK_STATUS[key as keyof typeof TASK_STATUS];
+            return <BoardColumn header={status} key={key} taskMap={taskState[status]} onDelete={onDelete} />;
+        });
+    };
+
     return (
         <Box sx={classes.container} data-testid="board-content">
             {renderColumns()}
