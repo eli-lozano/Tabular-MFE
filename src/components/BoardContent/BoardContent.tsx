@@ -1,29 +1,33 @@
 import { Box, SxProps, Theme } from "@mui/system";
-import BoardStatusColumn from "../BoardStatusColumn";
-import { TASK_STATUS } from "@/types";
+import BoardStatusColumn from "../BoardColumn";
+import { TASK_STATUS, Task, TaskState } from "@/types";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
         width: '99%',
+        height: 'auto',
         display: 'flex',
         mt: 1.5,
+        mb: 0.25,
         p: 1,
     },
 };
 
-const renderColumns = () => {
+interface BoardContentProps {
+    taskState: TaskState;
+}
+
+const renderColumns = (taskState: TaskState) => {
     return Object.keys(TASK_STATUS).map((key) => {
-        if (TASK_STATUS[key as keyof typeof TASK_STATUS] === TASK_STATUS.TO_DO) {
-            return <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} tasks={[{ id: 1, label: 'Task A' }]} />;
-        }
-        return <BoardStatusColumn header={TASK_STATUS[key as keyof typeof TASK_STATUS]} key={key} />;
+        const status = TASK_STATUS[key as keyof typeof TASK_STATUS];
+        return <BoardStatusColumn header={status} key={key} tasks={taskState[status]} />;
     });
 };
 
-const BoardContent: React.FC = () => {
+const BoardContent: React.FC<BoardContentProps> = ({ taskState }) => {
     return (
         <Box sx={classes.container} data-testid="board-content">
-            {renderColumns()}
+            {renderColumns(taskState)}
         </Box>);
 };
 

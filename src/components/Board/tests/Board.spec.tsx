@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import BoardContainer from '../BoardContainer';
+import Board from '../Board';
 
-describe('BoardContainer', () => {
+describe('Board', () => {
     it('contains a board title, board toolbar, and board content', () => {
-        render(<BoardContainer />);
+        render(<Board />);
 
         expect(screen.getByText('Tabular.io')).toBeInTheDocument();
         expect(screen.getByTestId('board-toolbar')).toBeInTheDocument();

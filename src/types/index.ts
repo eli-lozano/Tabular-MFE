@@ -19,7 +19,11 @@ type Task = {
     assignee?: TeamMember;
 }
 
-export type { Task, TeamMember, TaskId };
+type TaskState = {
+    [key in TASK_STATUS]: Task[];
+};
+
+export type { Task, TeamMember, TaskId, TaskState };
 export {
     TASK_STATUS
 };

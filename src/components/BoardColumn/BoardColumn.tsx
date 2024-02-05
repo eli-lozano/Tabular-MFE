@@ -5,11 +5,10 @@ import TaskCard from "../TaskCard/TaskCard";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
-        height: '100%',
         minHeight: 140,
         width: '20%',
         minWidth: 265,
-        backgroundColor: 'rgba(234, 219, 200, 80%)',
+        backgroundColor: 'rgba(234, 219, 200, 75%)',
         borderRadius: 1.75,
         m: '0px 3px'
     },
@@ -17,6 +16,7 @@ const classes: Record<string, SxProps<Theme>> = {
         display: 'flex',
         justifyContent: 'center',
         mt: 2,
+        mb: 3.5,
     },
     headerContainer: {
         height: 53,

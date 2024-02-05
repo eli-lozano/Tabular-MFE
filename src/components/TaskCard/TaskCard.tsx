@@ -12,7 +12,7 @@ const classes: Record<string, SxProps<Theme>> = {
     container: {
         minHeight: 105,
         height: 'auto',
-        maxHeight: 400,
+        maxHeight: 350,
         width: 260,
         borderRadius: 4.5,
         backgroundColor: '#F8F0E5',
@@ -22,7 +22,7 @@ const classes: Record<string, SxProps<Theme>> = {
         p: 2,
         display: 'flex',
         flexDirection: 'column',
-        gap: 3,
+        gap: 2,
     },
     contentFormat: {
         display: 'flex',
@@ -69,7 +69,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
                 <Box sx={classes.contentFormat}>
                     <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
                         <TextField multiline value={text} onChange={handleTextChange} variant="standard" fullWidth
-                            inputProps={{ maxLength: 300 }}
+                            inputProps={{ maxLength: 200 }}
                             InputProps={{
                                 disableUnderline: true,
                             }} />
