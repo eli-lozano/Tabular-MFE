@@ -15,6 +15,7 @@ type TeamMember = {
 type Task = {
     id: TaskId;
     label: string;
+    status: TASK_STATUS;
     assignee?: TeamMember;
 }
 
