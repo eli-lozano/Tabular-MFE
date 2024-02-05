@@ -19,11 +19,14 @@ type Task = {
     assignee?: TeamMember;
 }
 
+// Use a map for instant insertion/deletion
+type TaskMap = Map<TaskId, Task>;
+
 type TaskState = {
-    [key in TASK_STATUS]: Task[];
+    [key in TASK_STATUS]: TaskMap;
 };
 
-export type { Task, TeamMember, TaskId, TaskState };
+export type { Task, TeamMember, TaskId, TaskState, TaskMap };
 export {
     TASK_STATUS
 };

@@ -4,7 +4,7 @@ import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
-import { Task, TaskState } from "@/types";
+import { Task, TaskId, TaskState } from "@/types";
 import { MockTaskState } from "@/test-utils/mocks/task-mocks";
 
 const classes: Record<string, SxProps<Theme>> = {
@@ -37,12 +37,19 @@ const classes: Record<string, SxProps<Theme>> = {
 const Board: React.FC = () => {
     const [taskState, setTaskState] = useState<TaskState>(MockTaskState);
 
+    const handleDeleteTask = (task: Task) => {
+        setTaskState((prevTaskState) => {
+            prevTaskState[task.status]?.delete(task.id);
+            return { ...prevTaskState };
+        });
+    };
+
     return (
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
                 <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
-                <BoardContent taskState={taskState} />
+                <BoardContent taskState={taskState} onDelete={handleDeleteTask} />
             </Box>
         </Box>
     );

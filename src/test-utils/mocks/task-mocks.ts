@@ -58,9 +58,9 @@ const task8: Task = {
 };
 
 export const MockTaskState: TaskState = {
-    [TASK_STATUS.TO_DO]: [task1, task2, task3],
-    [TASK_STATUS.IN_PROGRESS]: [task5, task6],
-    [TASK_STATUS.READY_FOR_QA]: [task4],
-    [TASK_STATUS.READY_TO_DEPLOY]: [task7],
-    [TASK_STATUS.DONE]: [task8],
+    [TASK_STATUS.TO_DO]: new Map([[task1.id, task1], [task2.id, task2], [task3.id, task3]]),
+    [TASK_STATUS.IN_PROGRESS]: new Map([[task5.id, task5], [task6.id, task6]]),
+    [TASK_STATUS.READY_FOR_QA]: new Map([[task4.id, task4]]),
+    [TASK_STATUS.READY_TO_DEPLOY]: new Map([[task7.id, task7]]),
+    [TASK_STATUS.DONE]: new Map([[task8.id, task8]]),
 };
