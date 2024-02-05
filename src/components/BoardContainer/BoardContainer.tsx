@@ -19,8 +19,8 @@ const classes: Record<string, SxProps<Theme>> = {
     titleContainer: {
         height: 89,
         width: '100%',
-        paddingTop: 3,
-        paddingLeft: 4.5,
+        pt: 3,
+        pl: 4.5,
     },
     title: {
         fontFamily: 'Krona One',
