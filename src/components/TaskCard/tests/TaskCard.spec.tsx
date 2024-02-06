@@ -77,7 +77,8 @@ describe('TaskCard', () => {
     });
 
     it('should render an assignee icon with their initials when there is an assignee to a task', () => {
-        render(<TaskCard task={{ ...taskMock, assignee: { name: 'Jon Snow' } }} onDelete={jest.fn()} index={0} onUpdate={jest.fn()} />);
+        render(<TaskCard task={{ ...taskMock, assignee: { name: 'Jon Snow' } }} onDelete={jest.fn()}
+            index={0} onUpdate={jest.fn()} />);
         expect(screen.getByText('JS')).toBeInTheDocument();
     });
 

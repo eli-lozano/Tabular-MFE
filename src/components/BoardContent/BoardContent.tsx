@@ -23,7 +23,8 @@ const BoardContent: React.FC<BoardContentProps> = ({ taskState, onDelete, onUpda
     const renderColumns = () => {
         return Object.keys(TASK_STATUS).map((key) => {
             const status = TASK_STATUS[key as keyof typeof TASK_STATUS];
-            return <BoardColumn header={status} key={key} taskMap={taskState[status]} onDelete={onDelete} onUpdate={onUpdate} />;
+            return <BoardColumn header={status} key={key} taskMap={taskState[status]}
+                onDelete={onDelete} onUpdate={onUpdate} />;
         });
     };
 

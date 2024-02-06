@@ -75,8 +75,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate }) 
                     <CardContent sx={classes.content}>
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
-                                <TextField multiline value={text} onChange={handleTextChange} placeholder="What needs to be done?"
-                                    onBlur={() => onUpdate && onUpdate(task, text)} variant="standard" fullWidth
+                                <TextField multiline value={text} onChange={handleTextChange}
+                                    placeholder="What needs to be done?" onBlur={() => onUpdate && onUpdate(task, text)}
+                                    variant="standard" fullWidth
                                     inputProps={{ maxLength: 200 }}
                                     InputProps={{
                                         disableUnderline: true,

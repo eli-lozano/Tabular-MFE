@@ -52,7 +52,8 @@ interface BoardColumnProps {
 
 const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, onUpdate, taskMap = new Map() }) => {
     const renderTaskCards = () => {
-        return Array.from(taskMap).map(([id, task], index) => <TaskCard task={task} key={id} onDelete={onDelete} index={index} onUpdate={onUpdate} />);
+        return Array.from(taskMap).map(([id, task], index) =>
+            <TaskCard task={task} key={id} onDelete={onDelete} index={index} onUpdate={onUpdate} />);
     };
 
     return (

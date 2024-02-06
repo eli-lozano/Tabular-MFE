@@ -101,7 +101,8 @@ const Board: React.FC = () => {
 
             newSourceTaskList.splice(source.index, 1);
             // Update the task status to reflect the new column
-            newDestTaskList.splice(destination.index, 0, [draggedTaskId, { ...sourceTaskMap.get(draggedTaskId)!, status: destColumnKey }]);
+            newDestTaskList.splice(destination.index, 0, [draggedTaskId,
+                { ...sourceTaskMap.get(draggedTaskId)!, status: destColumnKey }]);
 
             setTaskState((prevTaskState) => ({
                 ...prevTaskState,
