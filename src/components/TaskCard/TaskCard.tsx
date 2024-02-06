@@ -69,7 +69,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
     return (
         <Draggable draggableId={task.id.toString()} index={index}>
             {(provided) => (
-                <Card sx={classes.container} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                <Card sx={classes.container} {...provided.draggableProps}
+                    {...provided.dragHandleProps} ref={provided.innerRef}>
                     <CardContent sx={classes.content}>
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
@@ -89,7 +90,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
                         </Box>
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', mt: 0.5 }}>
-                                <Typography fontSize="12px" fontWeight="600" sx={classes.taskId}>{TASK_ID_PREFIX}{task.id}</Typography>
+                                <Typography fontSize="12px" fontWeight="600" sx={classes.taskId}>
+                                    {TASK_ID_PREFIX}{task.id}
+                                </Typography>
                             </Box>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-end' }}>
                                 {renderAssigneeIcon(task.assignee)}

@@ -8,37 +8,39 @@ import { DroppableProvided, DroppableStateSnapshot, DraggableProvided, Draggable
 import { ReactNode } from 'react';
 
 jest.mock('@hello-pangea/dnd', () => ({
-    Droppable: ({ children }: { children: (provided: DroppableProvided, snapshot: DroppableStateSnapshot) => ReactNode }) => children({
-        droppableProps: {
-            'data-rfd-droppable-context-id': '1',
-            'data-rfd-droppable-id': '2',
-        },
-        innerRef: jest.fn(),
-        placeholder: null
-    }, {
-        isDraggingOver: false,
-        draggingOverWith: null,
-        draggingFromThisWith: null,
-        isUsingPlaceholder: false
-    }),
-    Draggable: ({ children }: { children: (provided: DraggableProvided, snapshot: DraggableStateSnapshot) => ReactNode }) => children({
-        draggableProps: {
-            style: undefined,
-            "data-rfd-draggable-context-id": "1",
-            "data-rfd-draggable-id": "3"
-        },
-        innerRef: jest.fn(),
-        dragHandleProps: null
-    }, {
-        isDragging: false,
-        isDropAnimating: false,
-        isClone: false,
-        dropAnimation: null,
-        draggingOver: null,
-        combineWith: null,
-        combineTargetFor: null,
-        mode: null
-    }),
+    Droppable: ({ children }: { children: (provided: DroppableProvided, snapshot: DroppableStateSnapshot) => ReactNode }) =>
+        children({
+            droppableProps: {
+                'data-rfd-droppable-context-id': '1',
+                'data-rfd-droppable-id': '2',
+            },
+            innerRef: jest.fn(),
+            placeholder: null
+        }, {
+            isDraggingOver: false,
+            draggingOverWith: null,
+            draggingFromThisWith: null,
+            isUsingPlaceholder: false
+        }),
+    Draggable: ({ children }: { children: (provided: DraggableProvided, snapshot: DraggableStateSnapshot) => ReactNode }) =>
+        children({
+            draggableProps: {
+                style: undefined,
+                "data-rfd-draggable-context-id": "1",
+                "data-rfd-draggable-id": "3"
+            },
+            innerRef: jest.fn(),
+            dragHandleProps: null
+        }, {
+            isDragging: false,
+            isDropAnimating: false,
+            isClone: false,
+            dropAnimation: null,
+            draggingOver: null,
+            combineWith: null,
+            combineTargetFor: null,
+            mode: null
+        }),
     DragDropContext: ({ children }: { children: null }) => children,
 }));
 

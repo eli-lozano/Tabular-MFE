@@ -4,12 +4,10 @@ import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
-import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap } from "@/types";
+import { Task, TaskState, TaskStatusReverseMap } from "@/types";
 import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
-import { DropResult } from "react-beautiful-dnd";
-import { TASK_ID_PREFIX } from "@/common/constants";
-import { Preview } from "@mui/icons-material";
+import { DropResult } from "@hello-pangea/dnd";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
