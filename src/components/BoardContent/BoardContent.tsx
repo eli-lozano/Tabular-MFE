@@ -1,6 +1,6 @@
 import { Box, SxProps, Theme } from "@mui/system";
 import BoardColumn from "../BoardColumn";
-import { TASK_STATUS, Task, TaskId, TaskState } from "@/types";
+import { TASK_STATUS, Task, TaskState } from "@/types";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {

@@ -2,7 +2,7 @@ import { TASK_STATUS, Task, TaskId, TaskMap } from "@/types";
 import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import TaskCard from "../TaskCard/TaskCard";
-import { useEffect } from "react";
+import { Droppable } from '@hello-pangea/dnd';
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -50,7 +50,7 @@ interface BoardColumnProps {
 
 const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, taskMap = new Map() }) => {
     const renderTaskCards = () => {
-        return Array.from(taskMap).map(([id, task]) => <TaskCard task={task} key={id} onDelete={onDelete} />);
+        return Array.from(taskMap).map(([id, task], index) => <TaskCard task={task} key={id} onDelete={onDelete} index={index} />);
     };
 
     return (
@@ -58,13 +58,18 @@ const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, taskMap = n
             <Box sx={classes.headerContainer}>
                 <Typography sx={classes.header}>{header.toUpperCase()}</Typography>
             </Box>
-            {taskMap && taskMap.size > 0 &&
-                <Box sx={classes.content}>
-                    <Box sx={classes.cards}>
-                        {renderTaskCards()}
+            <Droppable droppableId={header}>
+                {(provided) =>
+                    <Box sx={classes.content} {...provided.droppableProps} ref={provided.innerRef}>
+                        <Box sx={classes.cards}>
+                            {taskMap && taskMap.size > 0 &&
+                                renderTaskCards()
+                            }
+                            {provided.placeholder}
+                        </Box>
                     </Box>
-                </Box>
-            }
+                }
+            </Droppable>
         </Box>
     );
 };
