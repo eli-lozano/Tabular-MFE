@@ -42,6 +42,7 @@ const classes: Record<string, SxProps<Theme>> = {
 
 interface BoardToolbarProps {
     memberNames: string[];
+    onCreate?: () => void;
 }
 
 const MemberIcons = (memberNames: string[]) => {
@@ -49,7 +50,7 @@ const MemberIcons = (memberNames: string[]) => {
         <NameInitialsAvatar name={name} textColor="white" bgColor="black" size="32px" textSize="14px" key={i} />);
 };
 
-const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames }) => {
+const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames, onCreate }) => {
     return (
         <Box sx={classes.toolbar} data-testid="board-toolbar">
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-start', paddingLeft: 3 }}>
@@ -61,7 +62,7 @@ const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames }) => {
                 </Box>
             </Box>
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-end', paddingRight: 6 }}>
-                <Button variant="contained" sx={classes.createButton}>Create</Button>
+                <Button variant="contained" sx={classes.createButton} onClick={onCreate}>Create</Button>
             </Box>
         </Box>);
 };

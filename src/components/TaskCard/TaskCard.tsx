@@ -50,7 +50,8 @@ const classes: Record<string, SxProps<Theme>> = {
 interface TaskCardProps {
     task: Task;
     index: number;
-    onDelete: (task: Task) => void;
+    onDelete?: (task: Task) => void;
+    onUpdate?: (task: Task, newText: string) => void;
 }
 
 const renderAssigneeIcon = (assignee?: TeamMember) => {
@@ -59,7 +60,7 @@ const renderAssigneeIcon = (assignee?: TeamMember) => {
         : <PersonIcon data-testid="assignee-icon" />;
 };
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate }) => {
     const [text, setText] = useState(task.label);
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +75,9 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
                     <CardContent sx={classes.content}>
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
-                                <TextField multiline value={text} onChange={handleTextChange} variant="standard" fullWidth
+                                <TextField multiline value={text} onChange={handleTextChange}
+                                    placeholder="What needs to be done?" onBlur={() => onUpdate && onUpdate(task, text)}
+                                    variant="standard" fullWidth
                                     inputProps={{ maxLength: 200 }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -82,7 +85,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
                             </Box>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-end', width: '15%' }}>
                                 <Box sx={classes.iconButtonFormat}>
-                                    <IconButton aria-label="delete" sx={classes.iconButton} onClick={() => onDelete(task)}>
+                                    <IconButton aria-label="delete" sx={classes.iconButton}
+                                        onClick={() => onDelete && onDelete(task)}>
                                         <CloseIcon data-testid="close-icon" />
                                     </IconButton>
                                 </Box>

@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import Board from '../Board';
 import userEvent from '@testing-library/user-event';
 
@@ -18,5 +18,27 @@ describe('Board', () => {
 
         await userEvent.click(screen.getAllByRole('button', { name: 'delete' })[0]);
         expect(screen.queryByText('T-1')).not.toBeInTheDocument();
+    });
+
+    it('should update a task on the board when the user updates the task and clicks away', async () => {
+        render(<Board />);
+
+        const textbox = screen.getAllByRole('textbox')[0];
+        await userEvent.clear(textbox);
+        await userEvent.type(textbox, 'Get clothes tailored');
+
+        await waitFor(() => {
+            textbox.blur()
+        });
+
+        expect(screen.getByText('Get clothes tailored')).toBeInTheDocument();
+    });
+
+    it('should create a new task when the create button is pressed', async () => {
+        render(<Board />);
+
+        expect(screen.getAllByRole('textbox')).toHaveLength(7);
+        await userEvent.click(screen.getByRole('button', { name: 'Create' }));
+        expect(screen.getAllByRole('textbox')).toHaveLength(8);
     });
 });

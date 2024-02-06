@@ -52,7 +52,7 @@ const taskMock: Task = {
 
 describe('TaskCard', () => {
     it('should display a task label, id, assignee icon, and X button icon', () => {
-        render(<TaskCard task={taskMock} onDelete={jest.fn()} index={0} />);
+        render(<TaskCard task={taskMock} onDelete={jest.fn()} index={0} onUpdate={jest.fn()} />);
 
         expect(screen.getByText(taskMock.label)).toBeInTheDocument();
         expect(screen.getByText(`T-${taskMock.id}`)).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('TaskCard', () => {
     });
 
     it('should update the task label when the user edits the label and clicks away', async () => {
-        render(<TaskCard task={taskMock} onDelete={jest.fn()} index={0} />);
+        render(<TaskCard task={taskMock} onDelete={jest.fn()} index={0} onUpdate={jest.fn()} />);
 
         const textField = screen.getByRole('textbox');
         await userEvent.clear(textField);
@@ -77,13 +77,14 @@ describe('TaskCard', () => {
     });
 
     it('should render an assignee icon with their initials when there is an assignee to a task', () => {
-        render(<TaskCard task={{ ...taskMock, assignee: { name: 'Jon Snow' } }} onDelete={jest.fn()} index={0} />);
+        render(<TaskCard task={{ ...taskMock, assignee: { name: 'Jon Snow' } }} onDelete={jest.fn()}
+            index={0} onUpdate={jest.fn()} />);
         expect(screen.getByText('JS')).toBeInTheDocument();
     });
 
     it('should call onDelete when the X button is clicked', async () => {
         const handleDeleteMock = jest.fn();
-        render(<TaskCard task={taskMock} onDelete={handleDeleteMock} index={0} />);
+        render(<TaskCard task={taskMock} onDelete={handleDeleteMock} index={0} onUpdate={jest.fn()} />);
 
         await userEvent.click(screen.getByRole('button'));
         expect(handleDeleteMock).toHaveBeenCalledWith(taskMock);
