@@ -1,5 +1,5 @@
 'use client'
-import { Task, TeamMember } from "@/types";
+import { Task, TaskId, TeamMember } from "@/types";
 import { Card, CardContent, IconButton, TextField, Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import { NameInitialsAvatar } from "react-name-initials-avatar";
@@ -8,6 +8,7 @@ import { TASK_ID_PREFIX } from "@/common/constants";
 import PersonIcon from '@mui/icons-material/Person';
 import { ChangeEvent, useState } from "react";
 import { Draggable } from '@hello-pangea/dnd';
+import { on } from "events";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -50,7 +51,8 @@ const classes: Record<string, SxProps<Theme>> = {
 interface TaskCardProps {
     task: Task;
     index: number;
-    onDelete: (task: Task) => void;
+    onDelete?: (task: Task) => void;
+    onUpdate?: (task: Task, newText: string) => void;
 }
 
 const renderAssigneeIcon = (assignee?: TeamMember) => {
@@ -59,7 +61,7 @@ const renderAssigneeIcon = (assignee?: TeamMember) => {
         : <PersonIcon data-testid="assignee-icon" />;
 };
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate }) => {
     const [text, setText] = useState(task.label);
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +76,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete }) => {
                     <CardContent sx={classes.content}>
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
-                                <TextField multiline value={text} onChange={handleTextChange} variant="standard" fullWidth
+                                <TextField multiline value={text} onChange={handleTextChange} onBlur={() => onUpdate(task, text)} variant="standard" fullWidth
                                     inputProps={{ maxLength: 200 }}
                                     InputProps={{
                                         disableUnderline: true,

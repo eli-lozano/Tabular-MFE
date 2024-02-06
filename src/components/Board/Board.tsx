@@ -4,7 +4,7 @@ import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
-import { Task, TaskState, TaskStatusReverseMap } from "@/types";
+import { Task, TaskId, TaskState, TaskStatusReverseMap } from "@/types";
 import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
 import { DropResult } from "@hello-pangea/dnd";
@@ -41,7 +41,17 @@ const Board: React.FC = () => {
 
     const handleDeleteTask = (task: Task) => {
         setTaskState((prevTaskState) => {
-            prevTaskState[task.status]?.delete(task.id);
+            prevTaskState[task.status].delete(task.id);
+            return { ...prevTaskState };
+        });
+    };
+
+    const handleUpdateTask = (task: Task, newText: string) => {
+        setTaskState((prevTaskState) => {
+            prevTaskState[task.status].set(task.id, {
+                ...task,
+                label: newText
+            });
             return { ...prevTaskState };
         });
     };
@@ -93,7 +103,7 @@ const Board: React.FC = () => {
                 <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
                 <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
                 <DragDropContext onDragEnd={handleDragEnd}>
-                    <BoardContent taskState={taskState} onDelete={handleDeleteTask} />
+                    <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask} />
                 </DragDropContext>
             </Box>
         </Box>

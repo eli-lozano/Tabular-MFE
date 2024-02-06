@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import TaskCard from "../TaskCard/TaskCard";
 import { Droppable } from '@hello-pangea/dnd';
+import { on } from "events";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -44,13 +45,14 @@ const classes: Record<string, SxProps<Theme>> = {
 
 interface BoardColumnProps {
     header: TASK_STATUS;
-    onDelete: (task: Task) => void;
+    onDelete?: (task: Task) => void;
+    onUpdate?: (task: Task, newText: string) => void;
     taskMap?: TaskMap;
 }
 
-const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, taskMap = new Map() }) => {
+const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, onUpdate, taskMap = new Map() }) => {
     const renderTaskCards = () => {
-        return Array.from(taskMap).map(([id, task], index) => <TaskCard task={task} key={id} onDelete={onDelete} index={index} />);
+        return Array.from(taskMap).map(([id, task], index) => <TaskCard task={task} key={id} onDelete={onDelete} index={index} onUpdate={onUpdate} />);
     };
 
     return (
