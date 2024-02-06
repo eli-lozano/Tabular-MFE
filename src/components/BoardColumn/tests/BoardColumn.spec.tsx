@@ -1,7 +1,8 @@
 import { TASK_STATUS, Task } from '@/types';
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import BoardColumn from '../BoardColumn';
+import { render } from '@/test/test-utils';
 
 const taskMock: Task = {
     id: 1,

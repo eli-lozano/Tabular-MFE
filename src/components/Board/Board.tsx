@@ -4,8 +4,10 @@ import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
-import { Task, TaskId, TaskState } from "@/types";
-import { MockTaskState } from "@/test-utils/mocks/task-mocks";
+import { Task, TaskState, TaskStatusReverseMap } from "@/types";
+import { MockTaskState } from "@/test/mocks/task-mocks";
+import { DragDropContext } from '@hello-pangea/dnd';
+import { DropResult } from "@hello-pangea/dnd";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -44,12 +46,55 @@ const Board: React.FC = () => {
         });
     };
 
+    // Synchronously update state to reflect DnD result
+    const handleDragEnd = (result: DropResult) => {
+        const { destination, source, draggableId } = result;
+
+        if (!destination || (source.droppableId === destination.droppableId && destination.index === source.index)) {
+            return;
+        }
+
+        const draggedTaskId = Number(draggableId);
+        const sourceColumnKey = TaskStatusReverseMap[source.droppableId];
+        const sourceTaskMap = taskState[sourceColumnKey];
+        const newSourceTaskList = Array.from(sourceTaskMap);
+
+        // Same column, but different indexes
+        if (source.droppableId === destination.droppableId) {
+
+            // Remove the source task
+            newSourceTaskList.splice(source.index, 1);
+            // Add the dragged task to the destination index; dragged task is guaranteed to be in map
+            newSourceTaskList.splice(destination.index, 0, [draggedTaskId, sourceTaskMap.get(draggedTaskId)!]);
+
+            setTaskState((prevTaskState) => ({
+                ...prevTaskState,
+                [sourceColumnKey]: new Map(newSourceTaskList)
+            }));
+        // Different columns, different indices 
+        } else {
+            const destColumnKey = TaskStatusReverseMap[destination.droppableId];
+            const newDestTaskList = Array.from(taskState[destColumnKey]);
+
+            newSourceTaskList.splice(source.index, 1);
+            newDestTaskList.splice(destination.index, 0, [draggedTaskId, sourceTaskMap.get(draggedTaskId)!]);
+
+            setTaskState((prevTaskState) => ({
+                ...prevTaskState,
+                [sourceColumnKey]: new Map(newSourceTaskList),
+                [destColumnKey]: new Map(newDestTaskList),
+            }));
+        }
+    };
+
     return (
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
                 <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
-                <BoardContent taskState={taskState} onDelete={handleDeleteTask} />
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    <BoardContent taskState={taskState} onDelete={handleDeleteTask} />
+                </DragDropContext>
             </Box>
         </Box>
     );

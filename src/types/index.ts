@@ -6,6 +6,14 @@ enum TASK_STATUS {
     DONE = 'Done',
 };
 
+const TaskStatusReverseMap: Record<string, TASK_STATUS> = {
+    'To do': TASK_STATUS.TO_DO,
+    'In Progress': TASK_STATUS.IN_PROGRESS,
+    'Ready for QA': TASK_STATUS.READY_FOR_QA,
+    'Ready to Deploy': TASK_STATUS.READY_TO_DEPLOY,
+    'Done': TASK_STATUS.DONE,
+};
+
 type TaskId = number;
 
 type TeamMember = {
@@ -28,5 +36,6 @@ type TaskState = {
 
 export type { Task, TeamMember, TaskId, TaskState, TaskMap };
 export {
-    TASK_STATUS
+    TASK_STATUS,
+    TaskStatusReverseMap
 };
