@@ -5,7 +5,7 @@ import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
 import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap } from "@/types";
-import { MockTaskState } from "@/test-utils/mocks/task-mocks";
+import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
 import { DropResult } from "react-beautiful-dnd";
 import { TASK_ID_PREFIX } from "@/common/constants";
@@ -73,10 +73,8 @@ const Board: React.FC = () => {
                 ...prevTaskState,
                 [sourceColumnKey]: new Map(newSourceTaskList)
             }));
-        }
-
-        // Different columns, different indexes
-        if (source.droppableId !== destination.droppableId) {
+        // Different columns, different indices 
+        } else {
             const destColumnKey = TaskStatusReverseMap[destination.droppableId];
             const newDestTaskList = Array.from(taskState[destColumnKey]);
 
