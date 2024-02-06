@@ -4,7 +4,7 @@ import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
-import { Task, TaskId, TaskState, TaskStatusReverseMap } from "@/types";
+import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap } from "@/types";
 import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
 import { DropResult } from "@hello-pangea/dnd";
@@ -38,6 +38,19 @@ const classes: Record<string, SxProps<Theme>> = {
 
 const Board: React.FC = () => {
     const [taskState, setTaskState] = useState<TaskState>(MockTaskState);
+
+    const handleCreateTask = () => {
+        // Increment the total of all tasks to get a new ID
+        const newTaskId = Object.values(taskState).reduce((acc, taskMap) => acc + taskMap.size, 0) + 1;
+        setTaskState((prevTaskState) => {
+            prevTaskState[TASK_STATUS.TO_DO].set(newTaskId, {
+                id: newTaskId,
+                label: '',
+                status: TASK_STATUS.TO_DO
+            });
+            return { ...prevTaskState };
+        });
+    };
 
     const handleDeleteTask = (task: Task) => {
         setTaskState((prevTaskState) => {
@@ -87,7 +100,8 @@ const Board: React.FC = () => {
             const newDestTaskList = Array.from(taskState[destColumnKey]);
 
             newSourceTaskList.splice(source.index, 1);
-            newDestTaskList.splice(destination.index, 0, [draggedTaskId, sourceTaskMap.get(draggedTaskId)!]);
+            // Update the task status to reflect the new column
+            newDestTaskList.splice(destination.index, 0, [draggedTaskId, { ...sourceTaskMap.get(draggedTaskId)!, status: destColumnKey }]);
 
             setTaskState((prevTaskState) => ({
                 ...prevTaskState,
@@ -101,7 +115,7 @@ const Board: React.FC = () => {
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
-                <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} />
+                <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} onCreate={handleCreateTask} />
                 <DragDropContext onDragEnd={handleDragEnd}>
                     <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask} />
                 </DragDropContext>

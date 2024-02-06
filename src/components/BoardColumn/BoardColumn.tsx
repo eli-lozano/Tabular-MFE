@@ -45,9 +45,9 @@ const classes: Record<string, SxProps<Theme>> = {
 
 interface BoardColumnProps {
     header: TASK_STATUS;
+    taskMap?: TaskMap;
     onDelete?: (task: Task) => void;
     onUpdate?: (task: Task, newText: string) => void;
-    taskMap?: TaskMap;
 }
 
 const BoardColumn: React.FC<BoardColumnProps> = ({ header, onDelete, onUpdate, taskMap = new Map() }) => {

@@ -33,4 +33,12 @@ describe('Board', () => {
 
         expect(screen.getByText('Get clothes tailored')).toBeInTheDocument();
     });
+
+    it('should create a new task when the create button is pressed', async () => {
+        render(<Board />);
+
+        expect(screen.getAllByRole('textbox')).toHaveLength(7);
+        await userEvent.click(screen.getByRole('button', { name: 'Create' }));
+        expect(screen.getAllByRole('textbox')).toHaveLength(8);
+    });
 });
