@@ -18,7 +18,7 @@ const classes: Record<string, SxProps<Theme>> = {
         width: 260,
         borderRadius: 4.5,
         backgroundColor: '#F8F0E5',
-        boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)',
+        boxShadow: '0px 5px 5px 0px rgba(0, 0, 0, 0.25)',
     },
     content: {
         p: 2,
@@ -39,7 +39,9 @@ const classes: Record<string, SxProps<Theme>> = {
         flexDirection: 'column',
         justifyContent: 'flex-start',
     },
-    iconButton: {
+    deleteButton: {
+        color: '#0F2C59',
+        opacity: '70%',
         p: 0.25,
     },
     taskId: {
@@ -59,15 +61,22 @@ const classes: Record<string, SxProps<Theme>> = {
     },
     personIcon: {
         color: 'white',
-        fontSize: '23px'
+        fontSize: '23px',
     },
     assigneeButton: {
         display: 'flex',
         justifyContent: 'flex-end',
-        p: 0
+        p: 0,
     },
     item: {
         pr: 1.5,
+    },
+    menu: {
+        borderRadius: 7,
+        bgcolor: '#0F2C59',
+    },
+    menuItem: {
+        color: '#F8F0E5',
     },
 };
 
@@ -107,21 +116,26 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
 
     const renderAssigneeMenu = (teamMembers: TeamMembersMap, anchor: null | HTMLElement) => {
         return (
-            <Menu anchorEl={anchor} open={Boolean(anchor)} onClick={handleClose} onClose={handleClose}>
-                <MenuItem onClick={() => onUpdateAssignee && onUpdateAssignee(task, undefined)}>
+            <Menu anchorEl={anchor} open={Boolean(anchor)} onClick={handleClose}
+                onClose={handleClose} slotProps={{ paper: { sx: classes.menu } }}>
+                <MenuItem onClick={() => onUpdateAssignee && onUpdateAssignee(task, undefined)}
+                    sx={classes.menuItem}>
                     <Box sx={classes.item}>
                         {UnassignedIcon}
                     </Box>
                     Unassign
                 </MenuItem>
-                {Array.from(teamMembers).map(([id, teamMember]) =>
-                    <MenuItem key={id} onClick={() => onUpdateAssignee && onUpdateAssignee(task, teamMember)}>
-                        <Box sx={classes.item}>
-                            {renderAssigneeIcon(teamMember)}
-                        </Box>
-                        {teamMember.name}
-                    </MenuItem>
-                )}
+                {
+                    Array.from(teamMembers).map(([id, teamMember]) =>
+                        <MenuItem key={id} onClick={() => onUpdateAssignee && onUpdateAssignee(task, teamMember)}
+                            sx={classes.menuItem}>
+                            <Box sx={classes.item}>
+                                {renderAssigneeIcon(teamMember)}
+                            </Box>
+                            {teamMember.name}
+                        </MenuItem>
+                    )
+                }
             </Menu >);
     };
 
@@ -143,7 +157,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                             </Box>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-end', width: '15%' }}>
                                 <Box sx={classes.iconButtonFormat}>
-                                    <IconButton aria-label="delete" sx={classes.iconButton}
+                                    <IconButton aria-label="delete" sx={classes.deleteButton}
                                         onClick={() => onDelete && onDelete(task)}>
                                         <CloseIcon data-testid="close-icon" />
                                     </IconButton>
@@ -152,7 +166,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                         </Box>
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', mt: 0.5 }}>
-                                <Typography fontSize="12px" fontWeight="600" sx={classes.taskId}>
+                                <Typography fontSize="12px" fontWeight="900" sx={classes.taskId}>
                                     {TASK_ID_PREFIX}{task.id}
                                 </Typography>
                             </Box>
