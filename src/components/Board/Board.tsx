@@ -15,7 +15,7 @@ const classes: Record<string, SxProps<Theme>> = {
     container: {
         display: 'flex',
         justifyContent: 'center',
-        overflowX: 'hidden',
+        overflow: 'hidden',
     },
     content: {
         minHeight: '95vh',
@@ -40,10 +40,10 @@ const classes: Record<string, SxProps<Theme>> = {
 
 const Board: React.FC = () => {
     const [taskState, setTaskState] = useState<TaskState>(MockTaskState);
+    const [maxTaskId, setMaxTaskId] = useState<TaskId>(8);
 
     const handleCreateTask = () => {
-        // Increment the total of all tasks to get a new ID
-        const newTaskId = Object.values(taskState).reduce((acc, taskMap) => acc + taskMap.size, 0) + 1;
+        const newTaskId = maxTaskId + 1;
         setTaskState((prevTaskState) => {
             prevTaskState[TASK_STATUS.TO_DO].set(newTaskId, {
                 id: newTaskId,
@@ -52,9 +52,15 @@ const Board: React.FC = () => {
             });
             return { ...prevTaskState };
         });
+        setMaxTaskId(newTaskId);
     };
 
     const handleDeleteTask = (task: Task) => {
+        // If the max ID is being deleted, we must decrement the max ID
+        if (task.id === maxTaskId) {
+            setMaxTaskId((prevMaxId) => prevMaxId - 1);
+        }
+
         setTaskState((prevTaskState) => {
             prevTaskState[task.status].delete(task.id);
             return { ...prevTaskState };
