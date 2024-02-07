@@ -4,10 +4,12 @@ import { Box, SxProps, Theme } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
 import { useState } from "react";
-import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap } from "@/types";
+import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap, TeamMember } from "@/types";
 import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
 import { DropResult } from "@hello-pangea/dnd";
+import { TeamMembersContext } from "@/state/team-members/context";
+import { initialTeamMembersState } from "@/state/team-members/state";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -113,15 +115,19 @@ const Board: React.FC = () => {
     };
 
     return (
+
         <Box sx={classes.container}>
             <Box sx={classes.content}>
-                <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
-                <BoardToolbar memberNames={['Eli Lozano', 'Cristina Carillo']} onCreate={handleCreateTask} />
-                <DragDropContext onDragEnd={handleDragEnd}>
-                    <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask} />
-                </DragDropContext>
+                <TeamMembersContext.Provider value={{ teamMembersState: initialTeamMembersState }}>
+                    <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
+                    <BoardToolbar onCreate={handleCreateTask} />
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask} />
+                    </DragDropContext>
+                </TeamMembersContext.Provider>
             </Box>
         </Box>
+
     );
 };
 

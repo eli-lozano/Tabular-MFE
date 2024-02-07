@@ -12,6 +12,14 @@ const createJestConfig = nextJest({
 })
 
 const config: Config = {
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: 90
+    },
+  },
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
 

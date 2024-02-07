@@ -3,6 +3,9 @@ import { Button } from "@mui/material";
 import { Box, SxProps, Theme, styled } from "@mui/system";
 import { NameInitialsAvatar } from 'react-name-initials-avatar';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
+import { useContext } from "react";
+import { TeamMembersContext } from "@/state/team-members/context";
+import { TeamMembersMap } from "@/types";
 
 const classes: Record<string, SxProps<Theme>> = {
     toolbar: {
@@ -41,21 +44,21 @@ const classes: Record<string, SxProps<Theme>> = {
 };
 
 interface BoardToolbarProps {
-    memberNames: string[];
     onCreate?: () => void;
 }
 
-const MemberIcons = (memberNames: string[]) => {
-    return memberNames.map((name, i) =>
-        <NameInitialsAvatar name={name} textColor="white" bgColor="black" size="32px" textSize="14px" key={i} />);
+const MemberIcons = (teamMembers: TeamMembersMap) => {
+    return Array.from(teamMembers).map(([id, teamMember], index) =>
+        <NameInitialsAvatar name={teamMember.name} textColor="white" bgColor="black" size="32px" textSize="14px" key={id} />);
 };
 
-const BoardToolbar: React.FC<BoardToolbarProps> = ({ memberNames, onCreate }) => {
+const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate }) => {
+    const { teamMembersState } = useContext(TeamMembersContext);
     return (
         <Box sx={classes.toolbar} data-testid="board-toolbar">
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-start', paddingLeft: 3 }}>
                 <Box sx={classes.iconsContainer}>
-                    {MemberIcons(memberNames)}
+                    {MemberIcons(teamMembersState.teamMembers)}
                     <Box sx={classes.addIcon}>
                         <PersonAddAltRoundedIcon fontSize="large" />
                     </Box>
