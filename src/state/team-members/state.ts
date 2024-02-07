@@ -1,5 +1,5 @@
 import { teamMemberMock, teamMemberMock2, teamMemberMock3, teamMemberMock4, teamMemberMock5 } from "@/test/mocks/team-member-mocks";
-import { TeamMember, TeamMemberId, TeamMembersMap } from "@/types";
+import { TeamMembersMap } from "@/types";
 
 interface TeamMembersState {
     teamMembers: TeamMembersMap;

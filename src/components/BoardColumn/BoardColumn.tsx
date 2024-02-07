@@ -14,6 +14,7 @@ const classes: Record<string, SxProps<Theme>> = {
         m: '0px 3px'
     },
     content: {
+        height: '100%',
         display: 'flex',
         justifyContent: 'center',
         mt: 2,
