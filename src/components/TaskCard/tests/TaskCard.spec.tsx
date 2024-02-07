@@ -6,6 +6,7 @@ import TaskCard from '../TaskCard';
 import { render } from '@/test/test-utils';
 import { DroppableProvided, DroppableStateSnapshot, DraggableProvided, DraggableStateSnapshot } from '@hello-pangea/dnd';
 import { ReactNode } from 'react';
+import { teamMemberMock } from '@/test/mocks/team-member-mocks';
 
 jest.mock('@hello-pangea/dnd', () => ({
     Droppable: ({ children }: { children: (provided: DroppableProvided, snapshot: DroppableStateSnapshot) => ReactNode }) =>
@@ -56,7 +57,7 @@ describe('TaskCard', () => {
 
         expect(screen.getByText(taskMock.label)).toBeInTheDocument();
         expect(screen.getByText(`T-${taskMock.id}`)).toBeInTheDocument();
-        expect(screen.getByTestId('assignee-icon')).toBeInTheDocument();
+        expect(screen.getByTestId('unassigned-icon')).toBeInTheDocument();
         expect(screen.getByTestId('close-icon')).toBeInTheDocument();
     });
 
@@ -77,7 +78,7 @@ describe('TaskCard', () => {
     });
 
     it('should render an assignee icon with their initials when there is an assignee to a task', () => {
-        render(<TaskCard task={{ ...taskMock, assignee: { name: 'Jon Snow' } }} onDelete={jest.fn()}
+        render(<TaskCard task={{ ...taskMock, assignee: { id: '6435', name: 'Jon Snow' } }} onDelete={jest.fn()}
             index={0} onUpdate={jest.fn()} />);
         expect(screen.getByText('JS')).toBeInTheDocument();
     });
@@ -86,7 +87,21 @@ describe('TaskCard', () => {
         const handleDeleteMock = jest.fn();
         render(<TaskCard task={taskMock} onDelete={handleDeleteMock} index={0} onUpdate={jest.fn()} />);
 
-        await userEvent.click(screen.getByRole('button'));
+        await userEvent.click(screen.getByRole('button', { name: 'delete' }));
         expect(handleDeleteMock).toHaveBeenCalledWith(taskMock);
+    });
+
+    it('should call onUpdateAssignee when the user clicks the assigned icon and selects a team member or unassigned', async () => {
+        const onUpdateAssigneeMock = jest.fn();
+        render(<TaskCard task={taskMock} onDelete={jest.fn()} index={0} onUpdate={jest.fn()} onUpdateAssignee={onUpdateAssigneeMock} />);
+
+        const assigneeButton = screen.getByRole('button', { name: 'select-assignee' });
+        await userEvent.click(assigneeButton);
+
+        const menu = screen.getByRole('menu');
+        expect(menu).toBeInTheDocument();
+
+        await userEvent.click(screen.getAllByRole('menuitem')[1]);
+        expect(onUpdateAssigneeMock).toHaveBeenCalledWith(taskMock, teamMemberMock);
     });
 });

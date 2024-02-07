@@ -15,10 +15,15 @@ const TaskStatusReverseMap: Record<string, TASK_STATUS> = {
 };
 
 type TaskId = number;
+type TeamMemberId = string;
 
 type TeamMember = {
+    id: TeamMemberId;
     name: string;
+    color: string;
 }
+
+type TeamMembersMap = Map<TeamMemberId, TeamMember>;
 
 type Task = {
     id: TaskId;
@@ -34,7 +39,7 @@ type TaskState = {
     [key in TASK_STATUS]: TaskMap;
 };
 
-export type { Task, TeamMember, TaskId, TaskState, TaskMap };
+export type { Task, TeamMember, TeamMembersMap, TaskId, TeamMemberId, TaskState, TaskMap };
 export {
     TASK_STATUS,
     TaskStatusReverseMap
