@@ -128,11 +128,13 @@ const Board: React.FC = () => {
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <TeamMembersContext.Provider value={{ teamMembersState: initialTeamMembersState }}>
-                    <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
+                    <Box sx={classes.titleContainer}>
+                        <Typography sx={classes.title}>Tabular.io</Typography>
+                    </Box>
                     <BoardToolbar onCreate={handleCreateTask} />
                     <DragDropContext onDragEnd={handleDragEnd}>
-                        <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask}
-                            onUpdateAssignee={handleUpdateAssignee} />
+                        <BoardContent taskState={taskState} onDelete={handleDeleteTask}
+                            onUpdate={handleUpdateTask} onUpdateAssignee={handleUpdateAssignee} />
                     </DragDropContext>
                 </TeamMembersContext.Provider>
             </Box>

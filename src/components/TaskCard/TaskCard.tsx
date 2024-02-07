@@ -127,7 +127,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                 </MenuItem>
                 {
                     Array.from(teamMembers).map(([id, teamMember]) =>
-                        <MenuItem key={id} onClick={() => onUpdateAssignee && onUpdateAssignee(task, teamMember)}
+                        <MenuItem key={id} onClick={() =>
+                            onUpdateAssignee && onUpdateAssignee(task, teamMember)}
                             sx={classes.menuItem}>
                             <Box sx={classes.item}>
                                 {renderAssigneeIcon(teamMember)}
@@ -148,7 +149,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                         <Box sx={classes.contentFormat}>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
                                 <TextField multiline value={text} onChange={handleTextChange}
-                                    placeholder="What needs to be done?" onBlur={() => onUpdate && onUpdate(task, text)}
+                                    placeholder="What needs to be done?"
+                                    onBlur={() => onUpdate && onUpdate(task, text)}
                                     variant="standard" fullWidth sx={classes.text}
                                     inputProps={{ maxLength: 200 }}
                                     InputProps={{
