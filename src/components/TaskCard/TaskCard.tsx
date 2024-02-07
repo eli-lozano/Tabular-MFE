@@ -1,13 +1,14 @@
 'use client'
-import { Task, TeamMember } from "@/types";
-import { Card, CardContent, IconButton, TextField, Typography } from "@mui/material";
+import { Task, TeamMember, TeamMembersMap } from "@/types";
+import { Card, CardContent, IconButton, Menu, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import { Box, SxProps, Theme } from "@mui/system";
 import { NameInitialsAvatar } from "react-name-initials-avatar";
 import CloseIcon from '@mui/icons-material/Close';
 import { TASK_ID_PREFIX } from "@/common/constants";
 import PersonIcon from '@mui/icons-material/Person';
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Draggable } from '@hello-pangea/dnd';
+import { TeamMembersContext } from "@/state/team-members/context";
 
 const classes: Record<string, SxProps<Theme>> = {
     container: {
@@ -45,6 +46,28 @@ const classes: Record<string, SxProps<Theme>> = {
         color: '#0F2C59',
         opacity: '85%',
     },
+    personIconBackground: {
+        width: 28,
+        height: 28,
+        borderRadius: '50%',
+        backgroundColor: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+    },
+    personIcon: {
+        color: 'white',
+        fontSize: '23px'
+    },
+    assigneeButton: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        p: 0
+    },
+    item: {
+        pr: 1.5,
+    },
 };
 
 interface TaskCardProps {
@@ -52,19 +75,52 @@ interface TaskCardProps {
     index: number;
     onDelete?: (task: Task) => void;
     onUpdate?: (task: Task, newText: string) => void;
+    onUpdateAssignee?: (task: Task, assignee?: TeamMember) => void;
 }
+
+const UnassignedIcon = (
+    <Paper sx={classes.personIconBackground}>
+        <PersonIcon data-testid="unassigned-icon" sx={classes.personIcon} />
+    </Paper>
+);
 
 const renderAssigneeIcon = (assignee?: TeamMember) => {
     return assignee ?
         <NameInitialsAvatar name={assignee.name} bgColor="black" textColor="white" size="24px" textSize="12px" />
-        : <PersonIcon data-testid="assignee-icon" />;
+        : (UnassignedIcon);
 };
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, onUpdateAssignee }) => {
+    const { teamMembersState } = useContext(TeamMembersContext);
     const [text, setText] = useState(task.label);
+    const [anchor, setAnchor] = useState<null | HTMLElement>(null);
 
     const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
         setText(e.target.value);
+    };
+
+    const handleClose = () => {
+        setAnchor(null);
+    };
+
+    const renderAssigneeMenu = (teamMembers: TeamMembersMap, anchor: null | HTMLElement) => {
+        return (
+            <Menu anchorEl={anchor} open={Boolean(anchor)} onClick={handleClose} onClose={handleClose}>
+                <MenuItem onClick={() => onUpdateAssignee && onUpdateAssignee(task, undefined)}>
+                    <Box sx={classes.item}>
+                        {UnassignedIcon}
+                    </Box>
+                    Unassign
+                </MenuItem>
+                {Array.from(teamMembers).map(([id, teamMember]) =>
+                    <MenuItem key={id} onClick={() => onUpdateAssignee && onUpdateAssignee(task, teamMember)}>
+                        <Box sx={classes.item}>
+                            {renderAssigneeIcon(teamMember)}
+                        </Box>
+                        {teamMember.name}
+                    </MenuItem>
+                )}
+            </Menu >);
     };
 
     return (
@@ -77,7 +133,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate }) 
                             <Box sx={{ ...classes.element, justifyContent: 'flex-start', width: '85%' }}>
                                 <TextField multiline value={text} onChange={handleTextChange}
                                     placeholder="What needs to be done?" onBlur={() => onUpdate && onUpdate(task, text)}
-                                    variant="standard" fullWidth
+                                    variant="standard" fullWidth sx={classes.text}
                                     inputProps={{ maxLength: 200 }}
                                     InputProps={{
                                         disableUnderline: true,
@@ -99,8 +155,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate }) 
                                 </Typography>
                             </Box>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-end' }}>
-                                {renderAssigneeIcon(task.assignee)}
+                                <IconButton aria-label="select-assignee" sx={classes.assigneeButton}
+                                    onClick={(e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)}>
+                                    {renderAssigneeIcon(task.assignee)}
+                                </IconButton>
                             </Box>
+                            {renderAssigneeMenu(teamMembersState.teamMembers, anchor)}
                         </Box>
                     </CardContent>
                 </Card >

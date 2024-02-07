@@ -1,6 +1,6 @@
 'use client'
-import { Button } from "@mui/material";
-import { Box, SxProps, Theme, styled } from "@mui/system";
+import { Button, Paper } from "@mui/material";
+import { Box, SxProps, Theme } from "@mui/system";
 import { NameInitialsAvatar } from 'react-name-initials-avatar';
 import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
 import { useContext } from "react";
@@ -26,9 +26,16 @@ const classes: Record<string, SxProps<Theme>> = {
         ml: 1,
         gap: 0.8,
     },
-    addIcon: {
-        mt: 0.15,
-        ml: 0.75
+    addIconBackground: {
+        mt: 0.07,
+        ml: 0.75,
+        width: 36,
+        height: 36,
+        borderRadius: '50%',
+        backgroundColor: 'black',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     createButton: {
         height: 39,
@@ -40,6 +47,11 @@ const classes: Record<string, SxProps<Theme>> = {
         '&:hover': {
             backgroundColor: '#0F2C59',
         },
+    },
+    addPersonIcon: {
+        color: 'white',
+        fontSize: '24px',
+        ml: 0.45
     },
 };
 
@@ -59,9 +71,9 @@ const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate }) => {
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-start', paddingLeft: 3 }}>
                 <Box sx={classes.iconsContainer}>
                     {MemberIcons(teamMembersState.teamMembers)}
-                    <Box sx={classes.addIcon}>
-                        <PersonAddAltRoundedIcon fontSize="large" />
-                    </Box>
+                    <Paper sx={classes.addIconBackground}>
+                        <PersonAddAltRoundedIcon fontSize="large" sx={classes.addPersonIcon} />
+                    </Paper>
                 </Box>
             </Box>
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-end', paddingRight: 6 }}>

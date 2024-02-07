@@ -71,6 +71,16 @@ const Board: React.FC = () => {
         });
     };
 
+    const handleUpdateAssignee = (task: Task, assignee?: TeamMember) => {
+        setTaskState((prevTaskState) => {
+            prevTaskState[task.status].set(task.id, {
+                ...task,
+                assignee
+            });
+            return { ...prevTaskState };
+        });
+    };
+
     // Synchronously update state to reflect DnD result
     const handleDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
@@ -115,19 +125,18 @@ const Board: React.FC = () => {
     };
 
     return (
-
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <TeamMembersContext.Provider value={{ teamMembersState: initialTeamMembersState }}>
                     <Box sx={classes.titleContainer}><Typography sx={classes.title}>Tabular.io</Typography></Box>
                     <BoardToolbar onCreate={handleCreateTask} />
                     <DragDropContext onDragEnd={handleDragEnd}>
-                        <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask} />
+                        <BoardContent taskState={taskState} onDelete={handleDeleteTask} onUpdate={handleUpdateTask}
+                            onUpdateAssignee={handleUpdateAssignee} />
                     </DragDropContext>
                 </TeamMembersContext.Provider>
             </Box>
         </Box>
-
     );
 };
 
