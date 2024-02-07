@@ -68,7 +68,7 @@ const classes: Record<string, SxProps<Theme>> = {
         justifyContent: 'flex-end',
         p: 0,
     },
-    item: {
+    icon: {
         pr: 1.5,
     },
     menu: {
@@ -120,7 +120,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                 onClose={handleClose} slotProps={{ paper: { sx: classes.menu } }}>
                 <MenuItem onClick={() => onUpdateAssignee && onUpdateAssignee(task, undefined)}
                     sx={classes.menuItem}>
-                    <Box sx={classes.item}>
+                    <Box sx={classes.icon}>
                         {UnassignedIcon}
                     </Box>
                     Unassign
@@ -130,7 +130,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                         <MenuItem key={id} onClick={() =>
                             onUpdateAssignee && onUpdateAssignee(task, teamMember)}
                             sx={classes.menuItem}>
-                            <Box sx={classes.item}>
+                            <Box sx={classes.icon}>
                                 {renderAssigneeIcon(teamMember)}
                             </Box>
                             {teamMember.name}
