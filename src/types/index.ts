@@ -20,6 +20,7 @@ type TeamMemberId = string;
 type TeamMember = {
     id: TeamMemberId;
     name: string;
+    color: string;
 }
 
 type TeamMembersMap = Map<TeamMemberId, TeamMember>;

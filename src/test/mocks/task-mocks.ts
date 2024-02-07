@@ -1,4 +1,5 @@
 import { TASK_STATUS, Task, TaskState } from "@/types";
+import { teamMemberMock, teamMemberMock2, teamMemberMock3, teamMemberMock4, teamMemberMock5 } from "./team-member-mocks";
 
 const mockLabel = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua`;
 
@@ -25,36 +26,42 @@ const task3: Task = {
     id: 3,
     label: mockLabel,
     status: TASK_STATUS.TO_DO,
+    assignee: teamMemberMock3,
 };
 
 const task4: Task = {
     id: 4,
     label: mockLabel3,
     status: TASK_STATUS.READY_FOR_QA,
+    assignee: teamMemberMock2,
 };
 
 const task5: Task = {
     id: 5,
     label: mockLabel4,
     status: TASK_STATUS.IN_PROGRESS,
+    assignee: teamMemberMock5,
 };
 
 const task6: Task = {
     id: 6,
     label: mockLabel3,
     status: TASK_STATUS.IN_PROGRESS,
+    assignee: teamMemberMock2,
 };
 
 const task7: Task = {
     id: 7,
     label: mockLabel2,
     status: TASK_STATUS.READY_TO_DEPLOY,
+    assignee: teamMemberMock,
 };
 
 const task8: Task = {
     id: 8,
     label: mockLabel4,
     status: TASK_STATUS.DONE,
+    assignee: teamMemberMock,
 };
 
 export const MockTaskState: TaskState = {

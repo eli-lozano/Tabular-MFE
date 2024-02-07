@@ -32,7 +32,8 @@ const classes: Record<string, SxProps<Theme>> = {
         width: 36,
         height: 36,
         borderRadius: '50%',
-        backgroundColor: 'black',
+        backgroundColor: '#0F2C59',
+        opacity: '90%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -61,7 +62,8 @@ interface BoardToolbarProps {
 
 const MemberIcons = (teamMembers: TeamMembersMap) => {
     return Array.from(teamMembers).map(([id, teamMember], index) =>
-        <NameInitialsAvatar name={teamMember.name} textColor="white" bgColor="black" size="32px" textSize="14px" key={id} />);
+        <NameInitialsAvatar name={teamMember.name} textColor="white" bgColor={teamMember.color}
+            borderColor={teamMember.color} size="32px" textSize="14px" key={id} />);
 };
 
 const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate }) => {

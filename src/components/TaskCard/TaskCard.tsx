@@ -50,7 +50,8 @@ const classes: Record<string, SxProps<Theme>> = {
         width: 28,
         height: 28,
         borderRadius: '50%',
-        backgroundColor: 'black',
+        backgroundColor: '#0F2C59',
+        opacity: '90%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -86,7 +87,8 @@ const UnassignedIcon = (
 
 const renderAssigneeIcon = (assignee?: TeamMember) => {
     return assignee ?
-        <NameInitialsAvatar name={assignee.name} bgColor="black" textColor="white" size="24px" textSize="12px" />
+        <NameInitialsAvatar name={assignee.name} bgColor={assignee.color} borderColor={assignee.color}
+            textColor="white" size="24px" textSize="12px" />
         : (UnassignedIcon);
 };
 
