@@ -2,6 +2,17 @@ import '@testing-library/jest-dom'
 import { render, screen, waitFor } from '@testing-library/react'
 import Board from '../Board';
 import userEvent from '@testing-library/user-event';
+import { MockSerializedTaskState } from '@/test/mocks/task-mocks';
+import { MAX_TASK_ID_MOCK } from '@/common/constants';
+
+const mockGetItem = jest.fn();
+const mockSetItem = jest.fn();
+Object.defineProperty(window, "localStorage", {
+    value: {
+        getItem: (...args: string[]) => mockGetItem(...args),
+        setItem: (...args: string[]) => mockSetItem(...args),
+    },
+});
 
 describe('Board', () => {
     it('contains a board title, board toolbar, and board content', () => {
@@ -12,7 +23,15 @@ describe('Board', () => {
         expect(screen.getByTestId('board-content')).toBeInTheDocument();
     });
 
-    // TODO: after we hydrate the board with gSSP, revise this test to accomodate 
+    it('should set taskState and maxTaskId in local storage when save button is pressed', async () => {
+        render(<Board />);
+
+        await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+        expect(mockSetItem).toHaveBeenCalledWith('taskState', MockSerializedTaskState);
+        expect(mockSetItem).toHaveBeenCalledWith('maxTaskId', MAX_TASK_ID_MOCK.toString());
+    });
+
     it('should delete a task from the board when the user clicks the X button on a task card', async () => {
         render(<Board />);
 
@@ -58,5 +77,13 @@ describe('Board', () => {
         expect(screen.getAllByRole('textbox')).toHaveLength(7);
         await userEvent.click(screen.getByRole('button', { name: 'Create' }));
         expect(screen.getAllByRole('textbox')).toHaveLength(8);
+    });
+
+    it('should clear the board of all tasks when clear button is pressed', async () => {
+        render(<Board />);
+
+        await userEvent.click(screen.getByRole('button', { name: 'Clear' }));
+
+        expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
     });
 });
