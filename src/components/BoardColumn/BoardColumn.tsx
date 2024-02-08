@@ -1,47 +1,9 @@
 import { TASK_STATUS, Task, TaskId, TaskMap, TeamMember } from "@/types";
 import { Typography } from "@mui/material";
-import { Box, SxProps, Theme } from "@mui/system";
+import { Box } from "@mui/system";
 import TaskCard from "../TaskCard/TaskCard";
 import { Droppable } from '@hello-pangea/dnd';
-
-const classes: Record<string, SxProps<Theme>> = {
-    container: {
-        minHeight: 140,
-        width: '20%',
-        minWidth: 265,
-        backgroundColor: 'rgba(234, 219, 200, 75%)',
-        borderRadius: 1.75,
-        m: '0px 3px'
-    },
-    content: {
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        mt: 2,
-        mb: 3.5,
-    },
-    headerContainer: {
-        height: 53,
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
-    header: {
-        fontSize: 14,
-        fontWeight: 600,
-        pl: 2,
-        opacity: '85%',
-        color: '#0F2C59',
-    },
-    cards: {
-        height: '100%',
-        width: 260,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 1.5,
-    },
-};
+import { classes } from "./styles/BoardColumn.styles";
 
 interface BoardColumnProps {
     header: TASK_STATUS;

@@ -1,46 +1,35 @@
 'use client';
 import { Typography } from "@mui/material";
-import { Box, SxProps, Theme } from "@mui/system";
+import { Box } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap, TeamMember } from "@/types";
 import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
 import { DropResult } from "@hello-pangea/dnd";
 import { TeamMembersContext } from "@/state/team-members/context";
 import { initialTeamMembersState } from "@/state/team-members/state";
-
-const classes: Record<string, SxProps<Theme>> = {
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        overflow: 'hidden',
-    },
-    content: {
-        minHeight: '95vh',
-        height: 'auto',
-        width: '96vw',
-        m: 2,
-        backgroundColor: '#F8F0E5',
-        borderRadius: 2.5,
-    },
-    titleContainer: {
-        height: 89,
-        width: '100%',
-        pt: 3,
-        pl: 4.5,
-    },
-    title: {
-        fontFamily: 'Krona One',
-        fontSize: 48,
-        color: '#0F2C59',
-    },
-};
+import { classes } from "./styles/Board.styles";
+import { serializeTaskState, deserializeTaskState } from "@/utils/tasks";
 
 const Board: React.FC = () => {
-    const [taskState, setTaskState] = useState<TaskState>(MockTaskState);
+    const [taskState, setTaskState] = useState<TaskState>({} as TaskState);
     const [maxTaskId, setMaxTaskId] = useState<TaskId>(8);
+
+    // Hydrate task state based on local storage if it exists or mock data
+    useEffect(() => {
+        let storedTaskState: string | null = '';
+        if (window && window.localStorage) {
+            storedTaskState = localStorage.getItem('taskState');
+        }
+
+        setTaskState(storedTaskState ? deserializeTaskState(storedTaskState) : MockTaskState);
+    }, []);
+
+    const handleSave = () => {
+        localStorage.setItem('taskState', serializeTaskState(taskState));
+    };
 
     const handleCreateTask = () => {
         const newTaskId = maxTaskId + 1;
@@ -137,7 +126,7 @@ const Board: React.FC = () => {
                     <Box sx={classes.titleContainer}>
                         <Typography sx={classes.title}>Tabular.io</Typography>
                     </Box>
-                    <BoardToolbar onCreate={handleCreateTask} />
+                    <BoardToolbar onCreate={handleCreateTask} onSave={handleSave} />
                     <DragDropContext onDragEnd={handleDragEnd}>
                         <BoardContent taskState={taskState} onDelete={handleDeleteTask}
                             onUpdate={handleUpdateTask} onUpdateAssignee={handleUpdateAssignee} />

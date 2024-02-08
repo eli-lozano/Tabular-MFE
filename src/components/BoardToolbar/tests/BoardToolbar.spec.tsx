@@ -20,4 +20,13 @@ describe('BoardToolbar', () => {
 
         expect(onCreateMock).toHaveBeenCalledTimes(1);
     });
+
+    it('should call onSave when save button is pressed', async () => {
+        const onSaveMock = jest.fn();
+        render(<BoardToolbar onSave={onSaveMock} />);
+
+        await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+        expect(onSaveMock).toHaveBeenCalledTimes(1);
+    });
 });
