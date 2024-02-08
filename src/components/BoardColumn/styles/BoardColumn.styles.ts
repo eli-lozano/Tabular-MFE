@@ -7,7 +7,7 @@ const classes: Record<string, SxProps<Theme>> = {
         minWidth: 265,
         backgroundColor: 'rgba(234, 219, 200, 75%)',
         borderRadius: 1.75,
-        m: '0px 3px'
+        m: '0px 4px'
     },
     content: {
         height: '100%',
