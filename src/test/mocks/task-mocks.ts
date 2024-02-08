@@ -64,10 +64,17 @@ const task8: Task = {
     assignee: teamMemberMock,
 };
 
-export const MockTaskState: TaskState = {
+const MockTaskState: TaskState = {
     [TASK_STATUS.TO_DO]: new Map([[task1.id, task1], [task2.id, task2], [task3.id, task3]]),
     [TASK_STATUS.IN_PROGRESS]: new Map([[task5.id, task5], [task6.id, task6]]),
     [TASK_STATUS.READY_FOR_QA]: new Map([[task4.id, task4]]),
     [TASK_STATUS.READY_TO_DEPLOY]: new Map([[task7.id, task7]]),
     [TASK_STATUS.DONE]: new Map([[task8.id, task8]]),
 };
+
+const MockSerializedTaskState = '{"To do":[[1,{"id":1,"label":"Magna eget est lorem ipsum dolor.","status":"To do"}],[2,{"id":2,"label":"Nunc mi ipsum faucibus vitae. Enim tortor at auctor urna. Ac tortor dignissim convallis aenean et tortor at risus.","status":"To do"}],[3,{"id":3,"label":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua","status":"To do","assignee":{"id":"6453","name":"Joseph Noel","color":"orange"}}]],"In Progress":[[5,{"id":5,"label":"At augue eget arcu dictum. Habitasse platea dictumst vestibulum rhoncus est pellentesque elit.","status":"In Progress","assignee":{"id":"6343","name":"Sri Dasari","color":"purple"}}],[6,{"id":6,"label":"Magna eget est lorem ipsum dolor.","status":"In Progress","assignee":{"id":"3453","name":"Ethan Cheatham","color":"green"}}]],"Ready for QA":[[4,{"id":4,"label":"Magna eget est lorem ipsum dolor.","status":"Ready for QA","assignee":{"id":"3453","name":"Ethan Cheatham","color":"green"}}]],"Ready to Deploy":[[7,{"id":7,"label":"Nunc mi ipsum faucibus vitae. Enim tortor at auctor urna. Ac tortor dignissim convallis aenean et tortor at risus.","status":"Ready to Deploy","assignee":{"id":"7453","name":"Eli Lozano","color":"red"}}]],"Done":[[8,{"id":8,"label":"At augue eget arcu dictum. Habitasse platea dictumst vestibulum rhoncus est pellentesque elit.","status":"Done","assignee":{"id":"7453","name":"Eli Lozano","color":"red"}}]]}'
+
+export {
+    MockTaskState,
+    MockSerializedTaskState
+}
