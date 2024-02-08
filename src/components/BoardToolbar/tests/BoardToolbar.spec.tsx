@@ -29,4 +29,13 @@ describe('BoardToolbar', () => {
 
         expect(onSaveMock).toHaveBeenCalledTimes(1);
     });
+
+    it('should call onClear when clear button is pressed', async () => {
+        const onClearMock = jest.fn();
+        render(<BoardToolbar onClear={onClearMock} />);
+
+        await userEvent.click(screen.getByRole('button', { name: 'Clear' }));
+
+        expect(onClearMock).toHaveBeenCalledTimes(1);
+    });
 });

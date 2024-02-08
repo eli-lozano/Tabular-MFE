@@ -22,7 +22,7 @@ const classes: Record<string, SxProps<Theme>> = {
     },
     title: {
         fontFamily: 'Krona One',
-        fontSize: 49,
+        fontSize: 48,
         color: '#0F2C59',
     },
 };

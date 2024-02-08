@@ -12,23 +12,36 @@ import { TeamMembersContext } from "@/state/team-members/context";
 import { initialTeamMembersState } from "@/state/team-members/state";
 import { classes } from "./styles/Board.styles";
 import { serializeTaskState, deserializeTaskState } from "@/utils/tasks";
+import { MAX_TASK_ID_MOCK } from "@/common/constants";
 
 const Board: React.FC = () => {
     const [taskState, setTaskState] = useState<TaskState>({} as TaskState);
-    const [maxTaskId, setMaxTaskId] = useState<TaskId>(8);
+    const [maxTaskId, setMaxTaskId] = useState<TaskId>(0);
 
     // Hydrate task state based on local storage if it exists or mock data
     useEffect(() => {
         let storedTaskState: string | null = '';
+        let storedMaxTaskId: string | null = '';
         if (window && window.localStorage) {
             storedTaskState = localStorage.getItem('taskState');
+            storedMaxTaskId = localStorage.getItem('maxTaskId');
         }
 
         setTaskState(storedTaskState ? deserializeTaskState(storedTaskState) : MockTaskState);
+        setMaxTaskId(storedMaxTaskId ? Number(JSON.parse(storedMaxTaskId)) : MAX_TASK_ID_MOCK);
     }, []);
 
     const handleSave = () => {
         localStorage.setItem('taskState', serializeTaskState(taskState));
+        localStorage.setItem('maxTaskId', maxTaskId.toString());
+    };
+
+    const handleClear = () => {
+        setTaskState((prevTaskState) => {
+            Object.values(TASK_STATUS).forEach((value) => prevTaskState[value].clear());
+            return { ...prevTaskState };
+        });
+        setMaxTaskId(0);
     };
 
     const handleCreateTask = () => {
@@ -76,7 +89,7 @@ const Board: React.FC = () => {
         });
     };
 
-    // Synchronously update state to reflect DnD result
+    // Synchronously update state to reflect drag/drop result
     const handleDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
 
@@ -126,7 +139,7 @@ const Board: React.FC = () => {
                     <Box sx={classes.titleContainer}>
                         <Typography sx={classes.title}>Tabular.io</Typography>
                     </Box>
-                    <BoardToolbar onCreate={handleCreateTask} onSave={handleSave} />
+                    <BoardToolbar onCreate={handleCreateTask} onSave={handleSave} onClear={handleClear} />
                     <DragDropContext onDragEnd={handleDragEnd}>
                         <BoardContent taskState={taskState} onDelete={handleDeleteTask}
                             onUpdate={handleUpdateTask} onUpdateAssignee={handleUpdateAssignee} />

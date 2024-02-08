@@ -14,15 +14,16 @@ import CreateIcon from '@mui/icons-material/Create';
 interface BoardToolbarProps {
     onCreate?: () => void;
     onSave?: () => void;
+    onClear?: () => void;
 }
 
 const MemberIcons = (teamMembers: TeamMembersMap) => {
-    return Array.from(teamMembers).map(([id, teamMember], index) =>
+    return Array.from(teamMembers).map(([id, teamMember]) =>
         <NameInitialsAvatar name={teamMember.name} textColor="white" bgColor={teamMember.color}
             borderColor={teamMember.color} size="32px" textSize="14px" key={id} />);
 };
 
-const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate, onSave }) => {
+const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate, onSave, onClear }) => {
     const { teamMembersState } = useContext(TeamMembersContext);
     return (
         <Box sx={classes.toolbar} data-testid="board-toolbar">
@@ -37,7 +38,9 @@ const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate, onSave }) => {
             <Box sx={{ ...classes.toolbarContent, justifyContent: 'flex-end', paddingRight: 6 }}>
                 <Box sx={classes.buttonsContainer}>
                     <Button variant="contained" sx={{
-                        ...classes.button, backgroundColor: '#0F2C59', color: '#F8F0E5',
+                        ...classes.button,
+                        backgroundColor: '#0F2C59',
+                        color: '#F8F0E5',
                         '&:hover': {
                             backgroundColor: '#0F2C59',
                             opacity: '0.92',
@@ -52,7 +55,7 @@ const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate, onSave }) => {
                         Save
                     </Button>
                     <Button variant="contained" sx={classes.button}
-                        onClick={onCreate} color="error" startIcon={<DeleteIcon />}>
+                        onClick={onClear} color="error" startIcon={<DeleteIcon />}>
                         Clear
                     </Button>
                 </Box>
