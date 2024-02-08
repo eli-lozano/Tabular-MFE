@@ -74,7 +74,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
     return (
         <Draggable draggableId={task.id.toString()} index={index}>
             {(provided) => (
-                <Card sx={classes.container} {...provided.draggableProps}
+                <Card sx={classes.card} {...provided.draggableProps}
                     {...provided.dragHandleProps} ref={provided.innerRef}>
                     <CardContent sx={classes.content}>
                         <Box sx={classes.contentFormat}>

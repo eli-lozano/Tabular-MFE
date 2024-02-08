@@ -1,7 +1,7 @@
 import { SxProps, Theme } from "@mui/system";
 
 const classes: Record<string, SxProps<Theme>> = {
-    container: {
+    card: {
         minHeight: 105,
         height: 'auto',
         maxHeight: 350,
