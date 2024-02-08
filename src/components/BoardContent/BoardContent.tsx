@@ -1,17 +1,7 @@
 import { Box, SxProps, Theme } from "@mui/system";
 import BoardColumn from "../BoardColumn";
-import { TASK_STATUS, Task, TaskId, TaskState, TeamMember } from "@/types";
-
-const classes: Record<string, SxProps<Theme>> = {
-    container: {
-        width: '99%',
-        height: 'auto',
-        display: 'flex',
-        mt: 1.5,
-        mb: 0.25,
-        p: 1,
-    },
-};
+import { TASK_STATUS, Task, TaskState, TeamMember } from "@/types";
+import { classes } from "./styles/BoardContent.styles";
 
 interface BoardContentProps {
     taskState: TaskState;

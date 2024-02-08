@@ -1,46 +1,48 @@
 'use client';
 import { Typography } from "@mui/material";
-import { Box, SxProps, Theme } from "@mui/system";
+import { Box } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TASK_STATUS, Task, TaskId, TaskState, TaskStatusReverseMap, TeamMember } from "@/types";
 import { MockTaskState } from "@/test/mocks/task-mocks";
 import { DragDropContext } from '@hello-pangea/dnd';
 import { DropResult } from "@hello-pangea/dnd";
 import { TeamMembersContext } from "@/state/team-members/context";
 import { initialTeamMembersState } from "@/state/team-members/state";
-
-const classes: Record<string, SxProps<Theme>> = {
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        overflow: 'hidden',
-    },
-    content: {
-        minHeight: '95vh',
-        height: 'auto',
-        width: '96vw',
-        m: 2,
-        backgroundColor: '#F8F0E5',
-        borderRadius: 2.5,
-    },
-    titleContainer: {
-        height: 89,
-        width: '100%',
-        pt: 3,
-        pl: 4.5,
-    },
-    title: {
-        fontFamily: 'Krona One',
-        fontSize: 48,
-        color: '#0F2C59',
-    },
-};
+import { classes } from "./styles/Board.styles";
+import { serializeTaskState, deserializeTaskState } from "@/utils/tasks";
+import { MAX_TASK_ID_MOCK } from "@/common/constants";
 
 const Board: React.FC = () => {
-    const [taskState, setTaskState] = useState<TaskState>(MockTaskState);
-    const [maxTaskId, setMaxTaskId] = useState<TaskId>(8);
+    const [taskState, setTaskState] = useState<TaskState>({} as TaskState);
+    const [maxTaskId, setMaxTaskId] = useState<TaskId>(0);
+
+    // Hydrate task state based on local storage if it exists or mock data
+    useEffect(() => {
+        let storedTaskState: string | null = '';
+        let storedMaxTaskId: string | null = '';
+        if (window && window.localStorage) {
+            storedTaskState = localStorage.getItem('taskState');
+            storedMaxTaskId = localStorage.getItem('maxTaskId');
+        }
+
+        setTaskState(storedTaskState ? deserializeTaskState(storedTaskState) : MockTaskState);
+        setMaxTaskId(storedMaxTaskId ? Number(JSON.parse(storedMaxTaskId)) : MAX_TASK_ID_MOCK);
+    }, []);
+
+    const handleSave = () => {
+        localStorage.setItem('taskState', serializeTaskState(taskState));
+        localStorage.setItem('maxTaskId', maxTaskId.toString());
+    };
+
+    const handleClear = () => {
+        setTaskState((prevTaskState) => {
+            Object.values(TASK_STATUS).forEach((value) => prevTaskState[value].clear());
+            return { ...prevTaskState };
+        });
+        setMaxTaskId(0);
+    };
 
     const handleCreateTask = () => {
         const newTaskId = maxTaskId + 1;
@@ -87,7 +89,7 @@ const Board: React.FC = () => {
         });
     };
 
-    // Synchronously update state to reflect DnD result
+    // Synchronously update state to reflect drag/drop result
     const handleDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
 
@@ -137,7 +139,7 @@ const Board: React.FC = () => {
                     <Box sx={classes.titleContainer}>
                         <Typography sx={classes.title}>Tabular.io</Typography>
                     </Box>
-                    <BoardToolbar onCreate={handleCreateTask} />
+                    <BoardToolbar onCreate={handleCreateTask} onSave={handleSave} onClear={handleClear} />
                     <DragDropContext onDragEnd={handleDragEnd}>
                         <BoardContent taskState={taskState} onDelete={handleDeleteTask}
                             onUpdate={handleUpdateTask} onUpdateAssignee={handleUpdateAssignee} />
