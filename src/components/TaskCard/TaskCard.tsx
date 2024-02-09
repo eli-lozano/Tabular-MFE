@@ -86,6 +86,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, index, onDelete, onUpdate, on
                                     inputProps={{ maxLength: 200 }}
                                     InputProps={{
                                         disableUnderline: true,
+                                        sx: classes.inputText,
                                     }} />
                             </Box>
                             <Box sx={{ ...classes.element, justifyContent: 'flex-end', width: '15%' }}>

@@ -32,6 +32,24 @@ describe('Board', () => {
         expect(mockSetItem).toHaveBeenCalledWith('maxTaskId', MAX_TASK_ID_MOCK.toString());
     });
 
+    it('should update a task assignee when the user assigns a team member to a task', async () => {
+        render(<Board />);
+
+        expect(screen.getAllByTestId('unassigned-icon')[0]).toBeInTheDocument();
+
+        const assigneeButtons = screen.getAllByRole('button', { name: 'select-assignee' });
+        await userEvent.click(assigneeButtons[0]);
+
+        const menu = screen.getByRole('menu');
+        expect(menu).toBeInTheDocument();
+
+        await userEvent.click(screen.getAllByRole('menuitem')[1]);
+
+        await waitFor(() => {
+            expect(screen.getAllByText('EL')[1]).toBeInTheDocument();
+        });
+    });
+
     it('should delete a task from the board when the user clicks the X button on a task card', async () => {
         render(<Board />);
 
@@ -51,24 +69,6 @@ describe('Board', () => {
         });
 
         expect(screen.getByText('Get clothes tailored')).toBeInTheDocument();
-    });
-
-    it('should update a task assignee when the user assigns a team member to a task', async () => {
-        render(<Board />);
-
-        expect(screen.getAllByTestId('unassigned-icon')[0]).toBeInTheDocument();
-
-        const assigneeButtons = screen.getAllByRole('button', { name: 'select-assignee' });
-        await userEvent.click(assigneeButtons[0]);
-
-        const menu = screen.getByRole('menu');
-        expect(menu).toBeInTheDocument();
-
-        await userEvent.click(screen.getAllByRole('menuitem')[1]);
-
-        await waitFor(() => {
-            expect(screen.getAllByText('EL')[1]).toBeInTheDocument();
-        });
     });
 
     it('should create a new task when the create button is pressed', async () => {
