@@ -8,7 +8,7 @@ const classes: Record<string, SxProps<Theme>> = {
         overflow: 'hidden',
     },
     content: {
-        minHeight: '95vh',
+        minHeight: '94vh',
         height: 'auto',
         width: '96vw',
         m: 2,
