@@ -1,3 +1,4 @@
+import theme from "@/theme";
 import { SxProps, Theme } from "@mui/system";
 
 const classes: Record<string, SxProps<Theme>> = {
@@ -5,7 +6,7 @@ const classes: Record<string, SxProps<Theme>> = {
         minHeight: 140,
         width: '20%',
         minWidth: 265,
-        backgroundColor: 'rgba(234, 219, 200, 75%)',
+        bgcolor: 'rgba(218, 192, 163, 42%)',
         borderRadius: 1.75,
         m: '0px 4px'
     },
@@ -28,7 +29,7 @@ const classes: Record<string, SxProps<Theme>> = {
         fontWeight: 600,
         pl: 2,
         opacity: '85%',
-        color: '#0F2C59',
+        color: theme.palette.secondary.dark,
     },
     cards: {
         height: '100%',
