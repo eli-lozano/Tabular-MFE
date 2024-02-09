@@ -70,6 +70,9 @@ const classes: Record<string, SxProps<Theme>> = {
         color: theme.palette.primary.light,
         fontSize: '13px',
     },
+    inputText: {
+        fontSize: '14px',
+    },
 };
 
 export {
