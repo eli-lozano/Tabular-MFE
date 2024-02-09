@@ -1,3 +1,4 @@
+import theme from "@/theme";
 import { SxProps, Theme } from "@mui/system";
 
 const classes: Record<string, SxProps<Theme>> = {
@@ -7,11 +8,11 @@ const classes: Record<string, SxProps<Theme>> = {
         overflow: 'hidden',
     },
     content: {
-        minHeight: '95vh',
+        minHeight: '94vh',
         height: 'auto',
         width: '96vw',
         m: 2,
-        backgroundColor: '#F8F0E5',
+        bgcolor: theme.palette.primary.light,
         borderRadius: 2.5,
     },
     titleContainer: {
@@ -22,8 +23,8 @@ const classes: Record<string, SxProps<Theme>> = {
     },
     title: {
         fontFamily: 'Krona One',
-        fontSize: 48,
-        color: '#0F2C59',
+        fontSize: 49,
+        color: theme.palette.secondary.dark,
     },
 };
 

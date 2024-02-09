@@ -1,3 +1,4 @@
+import theme from "@/theme";
 import { SxProps, Theme } from "@mui/system";
 
 const classes: Record<string, SxProps<Theme>> = {
@@ -25,7 +26,7 @@ const classes: Record<string, SxProps<Theme>> = {
         width: 36,
         height: 36,
         borderRadius: '50%',
-        backgroundColor: '#0F2C59',
+        bgcolor: theme.palette.secondary.dark,
         opacity: '90%',
         display: 'flex',
         alignItems: 'center',
@@ -35,13 +36,15 @@ const classes: Record<string, SxProps<Theme>> = {
         height: 39,
         width: 99,
         mt: 1.5,
+        borderRadius: 1.5,
         textTransform: 'none',
+        color: theme.palette.primary.light,
     },
     createButton: {
-        backgroundColor: '#0F2C59',
-        color: '#F8F0E5',
+        bgcolor: theme.palette.secondary.dark,
+        color: theme.palette.primary.light,
         '&:hover': {
-            backgroundColor: '#0F2C59',
+            bgcolor: theme.palette.secondary.dark,
         },
     },
     addPersonIcon: {

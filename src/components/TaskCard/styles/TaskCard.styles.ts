@@ -1,3 +1,4 @@
+import theme from "@/theme";
 import { SxProps, Theme } from "@mui/system";
 
 const classes: Record<string, SxProps<Theme>> = {
@@ -7,7 +8,7 @@ const classes: Record<string, SxProps<Theme>> = {
         maxHeight: 350,
         width: 260,
         borderRadius: 4.5,
-        backgroundColor: '#F8F0E5',
+        bgcolor: theme.palette.primary.light,
         boxShadow: '0px 5px 5px 0px rgba(0, 0, 0, 0.25)',
     },
     content: {
@@ -30,19 +31,19 @@ const classes: Record<string, SxProps<Theme>> = {
         justifyContent: 'flex-start',
     },
     deleteButton: {
-        color: '#0F2C59',
+        color: theme.palette.secondary.dark,
         opacity: '70%',
         p: 0.25,
     },
     taskId: {
-        color: '#0F2C59',
+        color: theme.palette.secondary.dark,
         opacity: '85%',
     },
     personIconBackground: {
         width: 28,
         height: 28,
         borderRadius: '50%',
-        backgroundColor: '#0F2C59',
+        bgcolor: theme.palette.secondary.dark,
         opacity: '90%',
         display: 'flex',
         alignItems: 'center',
@@ -63,10 +64,10 @@ const classes: Record<string, SxProps<Theme>> = {
     },
     menu: {
         borderRadius: 7,
-        bgcolor: '#0F2C59',
+        bgcolor: theme.palette.secondary.dark,
     },
     menuItem: {
-        color: '#F8F0E5',
+        color: theme.palette.primary.light,
         fontSize: '13px',
     },
 };

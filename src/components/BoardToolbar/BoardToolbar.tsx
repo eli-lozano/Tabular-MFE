@@ -9,7 +9,8 @@ import { TeamMembersMap } from "@/types";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import { classes } from "./styles/BoardToolbar.styles";
-import CreateIcon from '@mui/icons-material/Create';
+import NotesIcon from '@mui/icons-material/Notes';
+import theme from "@/theme";
 
 interface BoardToolbarProps {
     onCreate?: () => void;
@@ -39,18 +40,17 @@ const BoardToolbar: React.FC<BoardToolbarProps> = ({ onCreate, onSave, onClear }
                 <Box sx={classes.buttonsContainer}>
                     <Button variant="contained" sx={{
                         ...classes.button,
-                        backgroundColor: '#0F2C59',
-                        color: '#F8F0E5',
+                        bgcolor: theme.palette.secondary.dark,
                         '&:hover': {
-                            backgroundColor: '#0F2C59',
+                            backgroundColor: theme.palette.secondary.dark,
                             opacity: '0.92',
                             transition: 'background-color 0.2s ease-out, opacity 0.2s ease-out',
                         },
                     }}
-                        onClick={onCreate} startIcon={<CreateIcon />} color="primary">
+                        onClick={onCreate} startIcon={<NotesIcon />}>
                         Create
                     </Button>
-                    <Button variant="contained" sx={{ ...classes.button, }}
+                    <Button variant="contained" sx={classes.button}
                         onClick={onSave} startIcon={<SaveIcon />} color="success">
                         Save
                     </Button>
