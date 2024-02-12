@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tabular - Micro-Frontend Task Board
 
-## Getting Started
+Hello, everyone! Welcome to Tabular - a micro-frontend web app designed to simplify task management. Tabular provides a user-friendly Task Board where you can effortlessly create, update, delete, and move tasks across different columns as they progress. It's not just a task board; it's a showcase of robust software development, elegant user interface design, and thorough testing.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Create, update, delete, and move tasks across columns.
+- Assign team members to tasks.
+- Save and load the board for later use.
+- Clear the board when tasks are completed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Tabular is a result of utilizing cutting-edge technologies:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Figma for design mockups.
+- Next.js for a powerful React framework.
+- React, Typescript, and Material UI for a seamless user interface.
+- CSS-in-JS for styling.
+- Jest and React Testing Library for comprehensive testing.
+- Atlassian's drag-and-drop package for smooth task movements.
+- Deployment on Vercel for easy cloud hosting.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+The project follows a meticulous development process:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Requirement Engineering:** Defined user stories and system requirements.
+2. **Design:** Utilized Figma for design mockups and system design.
+3. **Implementation:** Used a test-driven development approach.
+4. **Deployment:** Deployed the application on Vercel.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## How to Run
 
-## Deploy on Vercel
+To get started with Tabular, follow these simple steps:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository: `git clone https://lnkd.in/gbBFzNyn`
+2. Navigate to the project directory: `cd tabular`
+3. Install dependencies: `npm install` (or `yarn install`, `pnpm install`, `bun install`)
+4. Run the development server: `npm run dev` (or `yarn dev`, `pnpm dev`, `bun dev`)
+5. Open http://localhost:3000 in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Future Plans
+
+I plan on extending Tabular by incorporating a simple GraphQL server to enhance data handling on the task board. Stay tuned for updates!
+
+## Demo
+
+You can experience Tabular [here](https://lnkd.in/g35FHEPX). For a closer look at the engineering, check out the code [here](https://lnkd.in/gbBFzNyn).
+
+**Note:** Tabular is designed for desktop use only. A demo recording for mobile users will be uploaded soon.
+
+## Feedback and Contributions
+
+I appreciate your feedback, comments, or suggestions. Feel free to reach out, as I'm always eager to learn and improve. Thank you for your support and interest! 😊
