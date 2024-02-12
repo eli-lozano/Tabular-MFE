@@ -1,5 +1,5 @@
 'use client';
-import { Typography } from "@mui/material";
+import { Typography, useMediaQuery } from "@mui/material";
 import { Box } from "@mui/system";
 import BoardToolbar from "../BoardToolbar";
 import BoardContent from "../BoardContent";
@@ -12,11 +12,13 @@ import { TeamMembersContext } from "@/state/team-members/context";
 import { initialTeamMembersState } from "@/state/team-members/state";
 import { classes } from "./styles/Board.styles";
 import { serializeTaskState, deserializeTaskState } from "@/utils/tasks";
-import { MAX_TASK_ID_MOCK } from "@/common/constants";
+import { MAX_TASK_ID_MOCK, MOBILE_VIEW_MESSAGE } from "@/common/constants";
+import theme from "@/theme";
 
 const Board: React.FC = () => {
     const [taskState, setTaskState] = useState<TaskState>({} as TaskState);
     const [maxTaskId, setMaxTaskId] = useState<TaskId>(0);
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
     // Hydrate task state based on local storage if it exists or mock data
     useEffect(() => {
@@ -102,7 +104,7 @@ const Board: React.FC = () => {
         const sourceTaskMap = taskState[sourceColumnKey];
         const newSourceTaskList = Array.from(sourceTaskMap);
 
-        // Same column, but different indexes
+        // Same column, but different indices
         if (source.droppableId === destination.droppableId) {
 
             // Remove the source task
@@ -132,7 +134,7 @@ const Board: React.FC = () => {
         }
     };
 
-    return (
+    return (isDesktop ?
         <Box sx={classes.container}>
             <Box sx={classes.content}>
                 <TeamMembersContext.Provider value={{ teamMembersState: initialTeamMembersState }}>
@@ -146,7 +148,9 @@ const Board: React.FC = () => {
                     </DragDropContext>
                 </TeamMembersContext.Provider>
             </Box>
-        </Box>
+        </Box> : (
+            <div>{MOBILE_VIEW_MESSAGE}</div>
+        )
     );
 };
 
