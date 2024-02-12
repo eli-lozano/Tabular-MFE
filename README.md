@@ -2,6 +2,8 @@
 
 Welcome to Tabular - a micro-frontend web app designed to simplify task management. Tabular provides a user-friendly Task Board where you can effortlessly create, update, delete, and move tasks across different columns as they progress. It's not just a task board; it's a showcase of robust software development, elegant user interface design, and thorough testing.
 
+![Screen Shot 2024-02-12 at 10 36 30 AM](https://github.com/eli-lozano/Tabular-MFE/assets/109989945/08cfce5d-c2c3-4d36-b57c-96f9be1c6761)
+
 ## Features
 
 - Create, update, delete, and move tasks across columns.
