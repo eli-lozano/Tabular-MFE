@@ -50,7 +50,7 @@ I plan on extending Tabular by incorporating a simple GraphQL server to enhance 
 
 You can experience Tabular [here](https://lnkd.in/g35FHEPX). For a closer look at the engineering, check out the code [here](https://lnkd.in/gbBFzNyn).
 
-**Note:** Tabular is designed for desktop use only. A demo recording for mobile users will be uploaded soon.
+**Note:** Tabular is designed for desktop use only. Mobile users visiting here can view a video demo [here].(https://www.youtube.com/watch?v=xxZXLgbsv2w&ab_channel=EliLozano).
 
 ## Feedback and Contributions
 
