@@ -1,6 +1,6 @@
 # Tabular - Micro-Frontend Task Board
 
-Hello, everyone! Welcome to Tabular - a micro-frontend web app designed to simplify task management. Tabular provides a user-friendly Task Board where you can effortlessly create, update, delete, and move tasks across different columns as they progress. It's not just a task board; it's a showcase of robust software development, elegant user interface design, and thorough testing.
+Welcome to Tabular - a micro-frontend web app designed to simplify task management. Tabular provides a user-friendly Task Board where you can effortlessly create, update, delete, and move tasks across different columns as they progress. It's not just a task board; it's a showcase of robust software development, elegant user interface design, and thorough testing.
 
 ## Features
 
