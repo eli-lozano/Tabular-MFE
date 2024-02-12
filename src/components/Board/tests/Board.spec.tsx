@@ -3,7 +3,8 @@ import { render, screen, waitFor } from '@testing-library/react'
 import Board from '../Board';
 import userEvent from '@testing-library/user-event';
 import { MockSerializedTaskState } from '@/test/mocks/task-mocks';
-import { MAX_TASK_ID_MOCK } from '@/common/constants';
+import { MAX_TASK_ID_MOCK, MOBILE_VIEW_MESSAGE } from '@/common/constants';
+import { useMediaQuery } from '@mui/material';
 
 const mockGetItem = jest.fn();
 const mockSetItem = jest.fn();
@@ -13,6 +14,13 @@ Object.defineProperty(window, "localStorage", {
         setItem: (...args: string[]) => mockSetItem(...args),
     },
 });
+
+jest.mock('@mui/material', () => ({
+    ...jest.requireActual("@mui/material"),
+    useMediaQuery: jest.fn().mockReturnValue(true),
+}));
+
+const useMediaQueryMock = useMediaQuery as jest.Mock;
 
 describe('Board', () => {
     it('contains a board title, board toolbar, and board content', () => {
@@ -85,5 +93,12 @@ describe('Board', () => {
         await userEvent.click(screen.getByRole('button', { name: 'Clear' }));
 
         expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    });
+
+    it('should render mobile view not supported when on mobile view', () => {
+        useMediaQueryMock.mockReturnValue(false);
+        render(<Board />);
+
+        expect(screen.getByText(MOBILE_VIEW_MESSAGE)).toBeInTheDocument();
     });
 });
